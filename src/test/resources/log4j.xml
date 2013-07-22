@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE log4j:configuration PUBLIC
+    "-//APACHE//DTD LOG4J 1.2//EN"
+    "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd" [
+    <!ENTITY LOG_DIR "/temp/logs" >
+    ]>
+<log4j:configuration xmlns:log4j='http://jakarta.apache.org/log4j/'>
+
+    <appender name="console" class="org.apache.log4j.ConsoleAppender">
+        <param name="threshold" value="debug" />
+        <param name="Target" value="System.out" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="CON [%-5p] %c %x %m%n" />
+        </layout>
+        <filter class="org.apache.log4j.varia.LevelRangeFilter">
+            <param name="LevelMin" value="debug" />
+            <param name="LevelMax" value="fatal" />
+        </filter>
+    </appender>
+
+    <appender name="applicationLog" class="org.apache.log4j.FileAppender">
+        <param name="threshold" value="debug" />
+        <param name="File" value="&LOG_DIR;/test-application.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] %c %x %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="flameworkLog" class="org.apache.log4j.FileAppender">
+        <param name="threshold" value="info" />
+        <param name="File" value="&LOG_DIR;/test-flamework.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] %c %x %m%n" />
+        </layout>
+    </appender>
+
+    <appender name="mongoLog" class="org.apache.log4j.FileAppender">
+        <param name="threshold" value="info" />
+        <param name="File" value="&LOG_DIR;/test-mongodb.log" />
+        <layout class="org.apache.log4j.PatternLayout">
+            <param name="ConversionPattern" value="[%-5p] %c %x %m%n" />
+        </layout>
+    </appender>
+
+    <!-- application -->
+    <logger name="com.example.mongoviewer" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="applicationLog" />
+        <appender-ref ref="console" />
+    </logger>
+
+    <logger name="org.springframework" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="flameworkLog" />
+    </logger>
+
+    <logger name="com.mongodb" additivity="false">
+        <level value="info"/>
+        <appender-ref ref="mongoLog" />
+    </logger>
+
+    <logger name="TEST" additivity="false">
+        <level value="debug"/>
+        <appender-ref ref="console" />
+    </logger>
+
+    <!-- LOGGER ROOT -->
+    <root>
+        <level value="info" />
+        <appender-ref ref="console" />
+    </root>
+
+</log4j:configuration>

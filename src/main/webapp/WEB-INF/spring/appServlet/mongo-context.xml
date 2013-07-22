@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:mvc="http://www.springframework.org/schema/mvc"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:task="http://www.springframework.org/schema/task"
+    xmlns:mongo="http://www.springframework.org/schema/data/mongo"
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/mvc
+        http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+        http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+        http://www.springframework.org/schema/context
+        http://www.springframework.org/schema/context/spring-context-3.2.xsd
+        http://www.springframework.org/schema/util
+        http://www.springframework.org/schema/util/spring-util-3.2.xsd
+        http://www.springframework.org/schema/task
+        http://www.springframework.org/schema/task/spring-task-3.2.xsd
+        http://www.springframework.org/schema/data/mongo
+        http://www.springframework.org/schema/data/mongo/spring-mongo-1.2.xsd">
+
+	<bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="location">
+			<value>/WEB-INF/spring/mongoviewer.properties</value>
+		</property>
+	</bean>
+ 
+    <!-- DispatcherServlet Context: defines this servlet's request-processing infrastructure -->
+    <context:annotation-config />
+ 
+    <!-- Scans within the base package of the application for @Components to configure as beans -->
+    <!-- @Controller, @Service, @Configuration, etc. -->
+    <context:component-scan base-package="com.example.mongoviewer" />
+
+    <mongo:mongo host="${mongo.host}" port="${mongo.port}" write-concern="${mongo.write-concern}" >
+      <mongo:options
+        connections-per-host="${mongo.option.connections-per-host}"
+        connect-timeout="${mongo.option.connect-timeout}"
+        threads-allowed-to-block-for-connection-multiplier="${mongo.option.threads-allowed-to-block-for-connection-multiplier}"
+        max-wait-time="${mongo.option.max-wait-time}"
+        slave-ok="${mongo.option.slave-ok}"
+        write-number="${mongo.option.write-number}"
+        write-timeout="${mongo.option.write-timeout}"
+        write-fsync="${mongo.option.write-fsync}"
+        socket-keep-alive="${mongo.option.socket-keep-alive}"
+        socket-timeout="${mongo.option.socket-timeout}"
+        auto-connect-retry="${mongo.option.auto-connect-retry}" />
+    </mongo:mongo>
+
+    <mongo:db-factory dbname="${mongo.db.dbname}" username="${mongo.db.username}" password="${mongo.db.password}" mongo-ref="mongo" />
+
+    <bean id="mappingContext"
+        class="org.springframework.data.mongodb.core.mapping.MongoMappingContext" />
+
+    <bean id="defaultMongoTypeMapper"
+        class="org.springframework.data.mongodb.core.convert.DefaultMongoTypeMapper">
+        <constructor-arg name="typeKey">
+            <null/>
+        </constructor-arg>
+    </bean>
+
+    <bean id="mappingMongoConverter"
+        class="org.springframework.data.mongodb.core.convert.MappingMongoConverter">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory" />
+        <constructor-arg name="mappingContext" ref="mappingContext" />
+        <property name="typeMapper" ref="defaultMongoTypeMapper" />
+    </bean>
+
+    <bean id="mongoTemplate"
+        class="org.springframework.data.mongodb.core.MongoTemplate">
+        <constructor-arg name="mongoDbFactory" ref="mongoDbFactory"/>
+        <constructor-arg name="mongoConverter" ref="mappingMongoConverter" />
+        <property name="writeResultChecking" value="EXCEPTION" />
+    </bean>
+
+</beans>

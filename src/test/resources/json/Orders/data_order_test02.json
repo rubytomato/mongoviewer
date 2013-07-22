@@ -1,0 +1,9 @@
+{
+  "orderNumber": 10100,
+  "orderDate": "2003-01-06",
+  "requiredDate": "2003-01-13",
+  "shippedDate": "2003-01-10",
+  "status": "Shipped",
+  "comments": null,
+  "customerNumber": 363
+}
