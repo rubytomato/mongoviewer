@@ -21,20 +21,16 @@ import com.example.mongoviewer.controller.IConstroller;
 import com.example.mongoviewer.controller.pagination.Paging;
 import com.example.mongoviewer.mongodb.collection.Payments;
 import com.example.mongoviewer.mongodb.constants.QualifierNames;
-import com.example.mongoviewer.mongodb.utils.MongoService;
 import com.example.mongoviewer.service.IService;
 
 
 @Controller
-public class PaymentsController implements IConstroller<Payments> {
+public class PaymentsController extends BaseController implements IConstroller<Payments> {
 	private static Logger logger = LoggerFactory.getLogger(PaymentsController.class);
 
 	@Qualifier(QualifierNames.SERVICE_PAYMENTS)
 	@Autowired
 	private IService<Payments> paymentsService;
-
-	@Autowired
-	private MongoService mongoService;
 
 	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.controller.IConstroller#top()
@@ -55,7 +51,7 @@ public class PaymentsController implements IConstroller<Payments> {
 	 */
 	@RequestMapping(value = "/payments/search/{page}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView search(@PathVariable("page") String page, @ModelAttribute("payments") Payments searchCondition,
+	public ModelAndView search(@PathVariable(value="page") String page, @ModelAttribute("payments") Payments searchCondition,
 			BindingResult result, HttpServletRequest request,
 			HttpServletResponse response) {
 		logger.debug("PaymentsController:[search] Passing through...");
@@ -67,12 +63,7 @@ public class PaymentsController implements IConstroller<Payments> {
 		logger.debug("paymentDate : " + searchCondition.getPaymentDate());
 		logger.debug("amount : " + searchCondition.getAmount());
 
-		logger.debug("queryString : " + request.getQueryString());
-		logger.debug("contextPath : " + request.getContextPath());
-		logger.debug("pathInfo : "    + request.getPathInfo());
-		logger.debug("servletPath : "    + request.getServletPath());
-
-		logger.debug("errorCount : " + result.getErrorCount());
+		debug(result, request, response);
 
 		//全件の件数
 		long allCount =
@@ -82,7 +73,7 @@ public class PaymentsController implements IConstroller<Payments> {
 		long resultCount =
 			paymentsService.count(searchCondition);
 
-		int numberOfCurrentPage = page == null ? 1 : Integer.valueOf(page).intValue();
+		int numberOfCurrentPage = calcCurrentPage(page);
 
 		//検索条件に一致するコレクション
 		List<Payments> searchResult =
@@ -105,7 +96,7 @@ public class PaymentsController implements IConstroller<Payments> {
 	 */
 	@RequestMapping(value = "/payments/detail/{id}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView detail(@PathVariable("id") String id) {
+	public ModelAndView detail(@PathVariable(value="id") String id) {
 		logger.debug("PaymentsController:[detail] Passing through...");
 
 		Payments detail =

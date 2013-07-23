@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<!-- The basics -->
-	<groupId>net.blogdns.gontata</groupId>
+	<groupId>com.example</groupId>
 	<artifactId>mongoviewer</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
@@ -147,8 +147,8 @@
 	</dependencies>
 
 	<!-- Project Meta Data -->
-	<name>jhv</name>
-	<description>jhotel view 2</description>
+	<name>mongoviewer</name>
+	<description>mongoviewer</description>
 	<url />
 	<licenses />
 	<organization />
@@ -157,7 +157,7 @@
 
 	<!-- build settings -->
 	<build>
-		<finalName>jhv2</finalName>
+		<finalName>mongoviewer</finalName>
 		<testSourceDirectory>src/test/java</testSourceDirectory>
 		<testResources>
 			<testResource>

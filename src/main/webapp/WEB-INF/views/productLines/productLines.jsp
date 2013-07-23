@@ -43,11 +43,7 @@
 
 		<c:if test="${not empty searchResult}">
 		<div class="row-fluid">
-			<div class="span2">
-
-			</div>
-
-			<div class="span10">
+			<div class="span12">
 
 				<c:if test="${not empty paging}">
 				<p>search result : count(${paging.resultCount} / ${paging.totalCount})</p>

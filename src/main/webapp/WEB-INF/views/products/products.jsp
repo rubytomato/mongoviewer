@@ -45,51 +45,6 @@
 			<hr>
 		</div>
 
-		<c:if test="${not empty stats}">
-		<div class="row-fluid">
-			<div class="span12 well">
-				<dl>
-					<dt>serverUsed</dt>
-					<dd>${stats.serverUsed}</dd>
-					<dt>ns</dt>
-					<dd>${stats.ns}</dd>
-					<dt>count</dt>
-					<dd>${stats.count}</dd>
-					<dt>size</dt>
-					<dd>${stats.size}</dd>
-					<dt>avgObjSize</dt>
-					<dd>${stats.avgObjSize}</dd>
-					<dt>storageSize</dt>
-					<dd>${stats.storageSize}</dd>
-					<dt>numExtents</dt>
-					<dd>${stats.numExtents}</dd>
-					<dt>nindexes</dt>
-					<dd>${stats.nindexes}</dd>
-					<dt>lastExtentSize</dt>
-					<dd>${stats.lastExtentSize}</dd>
-					<dt>paddingFactor</dt>
-					<dd>${stats.paddingFactor}</dd>
-					<dt>systemFlags</dt>
-					<dd>${stats.systemFlags}</dd>
-					<dt>userFlags</dt>
-					<dd>${stats.userFlags}</dd>
-					<dt>totalIndexSize</dt>
-					<dd>${stats.totalIndexSize}</dd>
-					<dt>ok</dt>
-					<dd>${stats.ok}</dd>
-				</dl>
-				<c:if test="${not empty stats.indexSizes}">
-					<c:forEach items="${stats.indexSizes}" var="list" varStatus="idx">
-					<dl>
-						<dt>${list.key}</dt>
-						<dd>${list.value}</dd>
-					</dl>
-					</c:forEach>
-				</c:if>
-			</div>
-		</div>
-		</c:if>
-
 		<c:if test="${not empty searchResult}">
 
 		<c:if test="${not empty paging}">
@@ -108,14 +63,6 @@
 						</c:forEach>
 						<li class="disabled"><a href="#">&raquo;</a></li>
 					</ul>
-				</div>
-				<div class="row-fluid">
-					<div class="span4 well">
-						sp4
-					</div>
-					<div class="span8 well">
-						sp8
-					</div>
 				</div>
 			</div>
 		</div>

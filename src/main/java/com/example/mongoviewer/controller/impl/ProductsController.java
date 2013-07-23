@@ -21,33 +21,23 @@ import org.springframework.web.servlet.ModelAndView;
 import com.example.mongoviewer.controller.IConstroller;
 import com.example.mongoviewer.controller.pagination.Paging;
 import com.example.mongoviewer.mongodb.collection.Products;
-import com.example.mongoviewer.mongodb.constants.CollectionNames;
 import com.example.mongoviewer.mongodb.constants.QualifierNames;
-import com.example.mongoviewer.mongodb.utils.MongoService;
-import com.example.mongoviewer.mongodb.utils.MongoStats;
 import com.example.mongoviewer.service.IService;
 
 @Controller
-public class ProductsController implements IConstroller<Products> {
+public class ProductsController extends BaseController implements IConstroller<Products> {
 	private static Logger logger = LoggerFactory.getLogger(ProductsController.class);
 
 	@Qualifier(QualifierNames.SERVICE_PRODUCTS)
 	@Autowired
 	private IService<Products> productsService;
 
-	@Autowired
-	private MongoService mongoService;
-
 	@RequestMapping(value = "/products", method = RequestMethod.GET)
 	@Override
 	public ModelAndView top() {
 		logger.debug("ProductsController:[top] Passing through...");
 
-		MongoStats stats =
-			mongoService.stats(CollectionNames.Products);
-
 		ModelAndView modelAndView = new ModelAndView("products/products");
-		modelAndView.addObject("stats", stats);
 
 		return modelAndView;
 
@@ -55,23 +45,16 @@ public class ProductsController implements IConstroller<Products> {
 
 	@RequestMapping(value = "/products/search/{page}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView search(@PathVariable("page") String page, @ModelAttribute("products") Products searchCondition, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView search(@PathVariable(value="page") String page, @ModelAttribute("products") Products searchCondition, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("ProductsController:[search] Passing through...");
 
 		logger.debug("[page] : " + page);
 
-		logger.debug("productCode : " + searchCondition.getProductCode());
-		logger.debug("productName : " + searchCondition.getProductName());
-		logger.debug("productLine : " + searchCondition.getProductLine());
-		logger.debug("productScale : " + searchCondition.getProductScale());
-		logger.debug("productVendor : " + searchCondition.getProductVendor());
+		if (logger.isDebugEnabled()) {
+			logger.debug(searchCondition.toString());
+		}
 
-		logger.debug("queryString : " + request.getQueryString());
-		logger.debug("contextPath : " + request.getContextPath());
-		logger.debug("pathInfo : "    + request.getPathInfo());
-		logger.debug("servletPath : "    + request.getServletPath());
-
-		logger.debug("errorCount : " + result.getErrorCount());
+		debug(result, request, response);
 
 		//全件の件数
 		long allCount =
@@ -81,7 +64,7 @@ public class ProductsController implements IConstroller<Products> {
 		long resultCount =
 			productsService.count(searchCondition);
 
-		int numberOfCurrentPage = page == null ? 1 : Integer.valueOf(page).intValue();
+		int numberOfCurrentPage = calcCurrentPage(page);
 
 		//検索条件に一致するコレクション
 		List<Products> searchResult =
@@ -104,7 +87,7 @@ public class ProductsController implements IConstroller<Products> {
 	 */
 	@RequestMapping(value = "/products/detail/{id}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView detail(@PathVariable("id") String id) {
+	public ModelAndView detail(@PathVariable(value="id") String id) {
 		logger.debug("ProductLinesController:[detail] Passing through...");
 
 		Products detail =

@@ -13,10 +13,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.mongoviewer.controller.IConstroller;
@@ -24,11 +26,10 @@ import com.example.mongoviewer.controller.pagination.Paging;
 import com.example.mongoviewer.mongodb.collection.Customers;
 import com.example.mongoviewer.mongodb.collection.Orders;
 import com.example.mongoviewer.mongodb.constants.QualifierNames;
-import com.example.mongoviewer.mongodb.utils.MongoService;
 import com.example.mongoviewer.service.IService;
 
 @Controller
-public class CustomersController implements IConstroller<Customers> {
+public class CustomersController extends BaseController implements IConstroller<Customers> {
 	private static Logger logger = LoggerFactory.getLogger(CustomersController.class);
 
 	@Qualifier(QualifierNames.SERVCIE_CUSTOMERS)
@@ -38,9 +39,6 @@ public class CustomersController implements IConstroller<Customers> {
 	@Qualifier(QualifierNames.SERVICE_ORDERS)
 	@Autowired
 	private IService<Orders> ordersService;
-
-	@Autowired
-	private MongoService mongoService;
 
 	@RequestMapping(value = "/customers", method = RequestMethod.GET)
 	@Override
@@ -55,23 +53,16 @@ public class CustomersController implements IConstroller<Customers> {
 
 	@RequestMapping(value = "/customers/search/{page}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView search(@PathVariable("page") String page, @ModelAttribute("customers") Customers searchCondition, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView search(@PathVariable(value="page") String page, @ModelAttribute("customers") Customers searchCondition, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("CustomersController:[search] Passing through...");
 
 		logger.debug("[page] : " + page);
 
-		logger.debug("customerNumber : " + searchCondition.getCustomerNumber());
-		logger.debug("customerName : " + searchCondition.getCustomerName());
-		logger.debug("phone : " + searchCondition.getPhone());
-		logger.debug("city : " + searchCondition.getCity());
-		logger.debug("country : " + searchCondition.getCountry());
+		if (logger.isDebugEnabled()) {
+			logger.debug(searchCondition.toString());
+		}
 
-		logger.debug("queryString : " + request.getQueryString());
-		logger.debug("contextPath : " + request.getContextPath());
-		logger.debug("pathInfo : "    + request.getPathInfo());
-		logger.debug("servletPath : "    + request.getServletPath());
-
-		logger.debug("errorCount : " + result.getErrorCount());
+		debug(result, request, response);
 
 		//全件の件数
 		long totalCount =
@@ -81,7 +72,7 @@ public class CustomersController implements IConstroller<Customers> {
 		long resultCount =
 			customersService.count(searchCondition);
 
-		int numberOfCurrentPage = page == null ? 1 : Integer.valueOf(page).intValue();
+		int numberOfCurrentPage = calcCurrentPage(page);
 
 		//検索条件に一致するコレクション
 		List<Customers> searchResult =
@@ -101,7 +92,7 @@ public class CustomersController implements IConstroller<Customers> {
 
 	@RequestMapping(value = "/customers/detail/{id}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView detail(@PathVariable("id") String id) {
+	public ModelAndView detail(@PathVariable(value="id") String id) {
 		logger.debug("CustomersController:[detail] Passing through...");
 
 		Customers customer =
@@ -120,4 +111,16 @@ public class CustomersController implements IConstroller<Customers> {
 		return modelAndView;
 
 	}
+
+	@ExceptionHandler(NullPointerException.class)
+	public String NullPointerException(IllegalStateException ex) {
+		return "error/nullpointer";
+	}
+
+	@ExceptionHandler
+	@ResponseBody
+	public String handleException(IllegalStateException ex) {
+		return "Handled exception: " + ex.getMessage();
+	}
+
 }

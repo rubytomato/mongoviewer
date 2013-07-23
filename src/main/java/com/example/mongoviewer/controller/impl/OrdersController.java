@@ -26,7 +26,7 @@ import com.example.mongoviewer.mongodb.constants.QualifierNames;
 import com.example.mongoviewer.service.IService;
 
 @Controller
-public class OrdersController implements IConstroller<Orders> {
+public class OrdersController extends BaseController implements IConstroller<Orders> {
 	private static Logger logger = LoggerFactory.getLogger(OrdersController.class);
 
 	@Qualifier(QualifierNames.SERVICE_ORDERS)
@@ -53,7 +53,7 @@ public class OrdersController implements IConstroller<Orders> {
 	 */
 	@RequestMapping(value = "/orders/search/{page}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView search(@PathVariable("page") String page, @ModelAttribute("orders") Orders searchCondition,
+	public ModelAndView search(@PathVariable(value="page") String page, @ModelAttribute("orders") Orders searchCondition,
 			BindingResult result, HttpServletRequest request,
 			HttpServletResponse response) {
 		logger.debug("OrdersController:[search] Passing through...");
@@ -64,12 +64,7 @@ public class OrdersController implements IConstroller<Orders> {
 		logger.debug("customerNumber : " + searchCondition.getCustomerNumber());
 		logger.debug("status : " + searchCondition.getStatus());
 
-		logger.debug("queryString : " + request.getQueryString());
-		logger.debug("contextPath : " + request.getContextPath());
-		logger.debug("pathInfo : "    + request.getPathInfo());
-		logger.debug("servletPath : "    + request.getServletPath());
-
-		logger.debug("errorCount : " + result.getErrorCount());
+		debug(result, request, response);
 
 		//全件の件数
 		long allCount =
@@ -79,7 +74,7 @@ public class OrdersController implements IConstroller<Orders> {
 		long resultCount =
 			ordersService.count(searchCondition);
 
-		int numberOfCurrentPage = page == null ? 1 : Integer.valueOf(page).intValue();
+		int numberOfCurrentPage = calcCurrentPage(page);
 
 		//検索条件に一致するコレクション
 		List<Orders> searchResult =
@@ -102,7 +97,7 @@ public class OrdersController implements IConstroller<Orders> {
 	 */
 	@RequestMapping(value = "/orders/detail/{id}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView detail(@PathVariable("id") String id) {
+	public ModelAndView detail(@PathVariable(value="id") String id) {
 		logger.debug("OrdersController:[detail] Passing through...");
 
 		Orders detail =

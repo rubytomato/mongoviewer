@@ -70,21 +70,51 @@ public class InitDataService {
 
 		List<Customers> customersList =
 			JsonLoader.multi(CUSTOMERS, Customers.class);
+		if (customersList != null && !customersList.isEmpty()) {
+			logger.debug("customersList size : " + customersList.size());
+		} else {
+			logger.debug("customersList null");
+		}
 
 		List<OrderDetails> orderDetailsList =
 			JsonLoader.multi(ORDERDETAILS, OrderDetails.class);
+		if (orderDetailsList != null && !orderDetailsList.isEmpty()) {
+			logger.debug("orderDetailsList size : " + orderDetailsList.size());
+		} else {
+			logger.debug("orderDetailsList null");
+		}
 
 		List<Orders> ordersList =
 			JsonLoader.multi(ORDERS, Orders.class);
+		if (ordersList != null && !ordersList.isEmpty()) {
+			logger.debug("ordersList size : " + ordersList.size());
+		} else {
+			logger.debug("ordersList null");
+		}
 
 		List<Payments> paymentsList =
 			JsonLoader.multi(PAYMENTS, Payments.class);
+		if (paymentsList != null && !paymentsList.isEmpty()) {
+			logger.debug("paymentsList size : " + paymentsList.size());
+		} else {
+			logger.debug("paymentsList null");
+		}
 
-		List<ProductLines> productLines =
+		List<ProductLines> productLinesList =
 			JsonLoader.multi(PRODUCTLINES, ProductLines.class);
+		if (productLinesList != null && !productLinesList.isEmpty()) {
+			logger.debug("productLinesList size : " + productLinesList.size());
+		} else {
+			logger.debug("productLinesList null");
+		}
 
-		List<Products> products =
+		List<Products> productsList =
 			JsonLoader.multi(PRODUCTS, Products.class);
+		if (productsList != null && !productsList.isEmpty()) {
+			logger.debug("productsList size : " + productsList.size());
+		} else {
+			logger.debug("productsList null");
+		}
 
 
 		customersDao.upsert(customersList);
@@ -95,9 +125,9 @@ public class InitDataService {
 
 		paymentsDao.upsert(paymentsList);
 
-		productLinesDao.upsert(productLines);
+		productLinesDao.upsert(productLinesList);
 
-		productsDao.upsert(products);
+		productsDao.upsert(productsList);
 
 
 		try {

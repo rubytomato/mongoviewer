@@ -26,7 +26,7 @@ import com.example.mongoviewer.mongodb.utils.MongoService;
 import com.example.mongoviewer.service.IService;
 
 @Controller
-public class ProductLinesController implements IConstroller<ProductLines> {
+public class ProductLinesController extends BaseController implements IConstroller<ProductLines> {
 	private static Logger logger = LoggerFactory.getLogger(ProductLinesController.class);
 
 	@Qualifier(QualifierNames.SERVICE_PRODUCT_LINES)
@@ -56,7 +56,7 @@ public class ProductLinesController implements IConstroller<ProductLines> {
 	 */
 	@RequestMapping(value = "/productLines/search/{page}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView search(@PathVariable("page") String page, @ModelAttribute("productLines") ProductLines searchCondition,
+	public ModelAndView search(@PathVariable(value="page") String page, @ModelAttribute("productLines") ProductLines searchCondition,
 			BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("ProductLinesController:[search] Passing through...");
 
@@ -64,12 +64,7 @@ public class ProductLinesController implements IConstroller<ProductLines> {
 
 		logger.debug("productLine : " + searchCondition.getProductLine());
 
-		logger.debug("queryString : " + request.getQueryString());
-		logger.debug("contextPath : " + request.getContextPath());
-		logger.debug("pathInfo : "    + request.getPathInfo());
-		logger.debug("servletPath : "    + request.getServletPath());
-
-		logger.debug("errorCount : " + result.getErrorCount());
+		debug(result, request, response);
 
 		//全件の件数
 		long allCount =
@@ -79,7 +74,7 @@ public class ProductLinesController implements IConstroller<ProductLines> {
 		long resultCount =
 			productLinesService.count(searchCondition);
 
-		int numberOfCurrentPage = page == null ? 1 : Integer.valueOf(page).intValue();
+		int numberOfCurrentPage = calcCurrentPage(page);
 
 		//検索条件に一致するコレクション
 		List<ProductLines> searchResult =
@@ -103,7 +98,7 @@ public class ProductLinesController implements IConstroller<ProductLines> {
 	 */
 	@RequestMapping(value = "/productLines/detail/{id}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView detail(@PathVariable("id") String id) {
+	public ModelAndView detail(@PathVariable(value="id") String id) {
 		logger.debug("ProductLinesController:[detail] Passing through...");
 
 		ProductLines detail =
