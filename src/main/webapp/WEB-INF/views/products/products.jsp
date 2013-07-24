@@ -92,9 +92,11 @@
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
 							<td>
-								<i class="icon-hand-up"></i>
-								<a href="${pageContext.request.contextPath}/products/detail/<c:out value="${list.id}"/>">
-									<c:out value="${list.id}"/>
+								<a href="${pageContext.request.contextPath}/products/detail/<c:out value="${list.id}"/>" class="btn">
+									Detail
+								</a>
+								<a href="${pageContext.request.contextPath}/products/json/<c:out value="${list.id}"/>" class="btn btn-success">
+									json
 								</a>
 							</td>
 							<td><c:out value="${list.productCode}"/></td>

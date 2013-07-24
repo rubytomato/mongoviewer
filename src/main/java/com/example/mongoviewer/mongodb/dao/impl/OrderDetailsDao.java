@@ -5,7 +5,9 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
+import org.springframework.data.mongodb.core.query.Order;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
@@ -71,6 +73,8 @@ public class OrderDetailsDao extends AbstractDao<OrderDetails> {
 		if (criteria != null) {
 			Query query = new Query(criteria);
 			query.skip(calcSkipNum(page)).limit(LIMIT);
+			query.with(new Sort(Sort.Direction.ASC, "orderNumber").and(new Sort(Sort.Direction.DESC, "orderLineNumber")));
+			//query.with(new Sort(Sort.Direction.ASC, "orderLineNumber"));
 			return doFind(query, OrderDetails.class);
 		} else {
 			Query query = new Query();

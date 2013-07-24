@@ -28,8 +28,7 @@
     <div class="container-fluid top_start_point">
 
         <header class="header">
-            <h3><spring:message code="orders.title" /></h3>
-            <p class="lead"><spring:message code="orders.desc" /></p>
+			<h3><spring:message code="orders.title" />&nbsp;<small><spring:message code="orders.desc" /></small></h3>
         </header>
 
 		<div class="row-fluid">
@@ -38,8 +37,8 @@
 					<caption>Orders</caption>
 					<thead>
 						<tr>
-							<th class="span2">1</th>
-							<th class="span6">2</th>
+							<th class="span1">field</th>
+							<th class="span11">value</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -48,27 +47,24 @@
 							<td>${detail.id}</td>
 						</tr>
 						<tr>
-							<th>orderNumber</th>
+							<th>order Number</th>
 							<td>${detail.orderNumber}</td>
 						</tr>
 						<tr>
-							<th>orderDate</th>
+							<th>order Date</th>
 							<td>
-								${detail.orderDate}<br>
 								<fmt:formatDate value="${detail.orderDate}" pattern="yyyy/MM/dd HH:mm:ss" />
 							</td>
 						</tr>
 						<tr>
-							<th>requiredDate</th>
+							<th>required Date</th>
 							<td>
-								${detail.requiredDate}<br>
 								<fmt:formatDate value="${detail.requiredDate}" pattern="yyyy/MM/dd HH:mm:ss" />
 							</td>
 						</tr>
 						<tr>
-							<th>shippedDate</th>
+							<th>shipped Date</th>
 							<td>
-								${detail.shippedDate}<br>
 								<fmt:formatDate value="${detail.shippedDate}" pattern="yyyy/MM/dd HH:mm:ss" />
 							</td>
 						</tr>
@@ -81,7 +77,7 @@
 							<td>${detail.comments}</td>
 						</tr>
 						<tr>
-							<th>customerNumber</th>
+							<th>customer Number</th>
 							<td>${detail.customerNumber}</td>
 						</tr>
 					</tbody>
@@ -95,32 +91,28 @@
 			<div class="span12">
 
 				<table class="table table-bordered table-striped table-condensed">
+					<caption>order details</caption>
 					<thead>
 						<tr>
 							<th>#</th>
 							<th>id</th>
-							<th>orderNumber</th>
-							<th>productCode</th>
-							<th>quantityOrdered</th>
+							<th>order Number</th>
+							<th>order Line Number</th>
+							<th>product Code</th>
+							<th>quantity Ordered</th>
 							<th>priceEach</th>
-							<th>orderLineNumber</th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach items="${orderDetailList}" var="list" varStatus="idx">
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
-							<td>
-								<i class="icon-hand-up"></i>
-								<a href="${pageContext.request.contextPath}/orderDetails/detail/<c:out value="${list.id}"/>">
-									<c:out value="${list.id}"/>
-								</a>
-							</td>
+							<td><c:out value="${list.id}"/></td>
 							<td><c:out value="${list.orderNumber}"/></td>
+							<td><c:out value="${list.orderLineNumber}"/></td>
 							<td><c:out value="${list.productCode}"/></td>
 							<td><c:out value="${list.quantityOrdered}"/></td>
 							<td><c:out value="${list.priceEach}"/></td>
-							<td><c:out value="${list.orderLineNumber}"/></td>
 						</tr>
 					</c:forEach>
 					</tbody>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.mongoviewer.controller.IConstroller;
@@ -97,6 +98,18 @@ public class ProductsController extends BaseController implements IConstroller<P
 		modelAndView.addObject("detail", detail);
 
 		return modelAndView;
+
+	}
+
+	@RequestMapping(value = "/products/json/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Products json(@PathVariable(value="id") String id) {
+		logger.debug("ProductLinesController:[json] Passing through...");
+
+		Products detail =
+			productsService.get(id);
+
+		return detail;
 
 	}
 

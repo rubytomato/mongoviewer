@@ -46,7 +46,6 @@
 			<div class="span12">
 
 				<c:if test="${not empty paging}">
-				<p>search result : count(${paging.resultCount} / ${paging.totalCount})</p>
 				<div class="pagination">
 					<ul>
 						<li class="disabled"><a href="#">&laquo;</a></li>
@@ -67,6 +66,7 @@
 					<thead>
 						<tr>
 							<th>#</th>
+							<th></th>
 							<th>productLine</th>
 							<th>textDescription</th>
 							<th>htmlDescription</th>
@@ -76,15 +76,15 @@
 					<tbody>
 					<c:forEach items="${searchResult}" var="list" varStatus="idx">
 						<tr>
-							<td rowspan="2"><c:out value="${idx.index}"/></td>
-							<td colspan="4">
-								<i class="icon-star"></i>
-								<a href="${pageContext.request.contextPath}/customers/detail/<c:out value="${list.id}"/>">
-									<span class="badge"><c:out value="${list.id}"/></span>
+							<td><c:out value="${idx.index}"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/customers/detail/<c:out value="${list.id}"/>" class="btn">
+									Detail
+								</a>
+								<a href="${pageContext.request.contextPath}/customers/json/<c:out value="${list.id}"/>" class="btn btn-success">
+									json
 								</a>
 							</td>
-						</tr>
-						<tr>
 							<td><c:out value="${list.productLine}"/></td>
 							<td><c:out value="${list.textDescription}"/></td>
 							<td><c:out value="${list.htmlDescription}"/></td>
@@ -96,6 +96,13 @@
 
 			</div>
 		</div>
+
+		<div class="row-fluid">
+			<div class="span12">
+				<p>Showing ${paging.showingFrom} to ${paging.showingTo} of ${paging.resultCount} results / total ${paging.totalCount} entries.</p>
+			</div>
+		</div>
+
 		</c:if>
 
 		<div id="push"></div>

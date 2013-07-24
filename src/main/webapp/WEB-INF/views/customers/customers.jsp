@@ -76,6 +76,7 @@
 					<thead>
 						<tr>
 							<th>#</th>
+							<th></th>
 							<th>customer Number</th>
 							<th>customer Name</th>
 							<th>contactLast Name</th>
@@ -87,21 +88,22 @@
 							<th>state</th>
 							<th>postal Code</th>
 							<th>country</th>
-							<th>salesRepEmployee Number</th>
-							<th>creditLimit</th>
+							<th>sales Rep Employee Number</th>
+							<th>credit Limit</th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach items="${searchResult}" var="list" varStatus="idx">
 						<tr>
-							<td rowspan="2"><c:out value="${idx.index}"/></td>
-							<td colspan="13">
-								<a href="${pageContext.request.contextPath}/customers/detail/<c:out value="${list.id}"/>">
-									<span class="badge"><c:out value="${list.id}"/></span>
+							<td><c:out value="${idx.index}"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/customers/detail/<c:out value="${list.id}"/>" class="btn">
+									Detail
+								</a>
+								<a href="${pageContext.request.contextPath}/customers/json/<c:out value="${list.id}"/>" class="btn btn-success">
+									json
 								</a>
 							</td>
-						</tr>
-						<tr>
 							<td><c:out value="${list.customerNumber}"/></td>
 							<td><c:out value="${list.customerName}"/></td>
 							<td><c:out value="${list.contactLastName}"/></td>

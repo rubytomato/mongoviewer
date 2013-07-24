@@ -28,8 +28,7 @@
     <div class="container-fluid top_start_point">
 
         <header class="header">
-            <h3><spring:message code="customers.title" /></h3>
-            <p class="lead">customers collectionのメンテナンス</p>
+            <h3><spring:message code="customers.title" />&nbsp;<small><spring:message code="customers.desc"/></small></h3>
         </header>
 
 		<div class="row-fluid">
@@ -37,8 +36,8 @@
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th class="span1">1</th>
-							<th class="span11">2</th>
+							<th class="span1">field</th>
+							<th class="span11">value</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -47,19 +46,19 @@
 							<td>${detail.id}</td>
 						</tr>
 						<tr>
-							<th>customerNumber</th>
+							<th>customer Number</th>
 							<td>${detail.customerNumber}</td>
 						</tr>
 						<tr>
-							<th>customerName</th>
+							<th>customer Name</th>
 							<td>${detail.customerName}</td>
 						</tr>
 						<tr>
-							<th>contactLastName</th>
+							<th>contact Last Name</th>
 							<td>${detail.contactLastName}</td>
 						</tr>
 						<tr>
-							<th>contactFirstName</th>
+							<th>contact First Name</th>
 							<td>${detail.contactFirstName}</td>
 						</tr>
 						<tr>
@@ -67,11 +66,11 @@
 							<td>${detail.phone}</td>
 						</tr>
 						<tr>
-							<th>addressLine1</th>
+							<th>address Line1</th>
 							<td>${detail.addressLine1}</td>
 						</tr>
 						<tr>
-							<th>addressLine2</th>
+							<th>address Line2</th>
 							<td>${detail.addressLine2}</td>
 						</tr>
 						<tr>
@@ -83,7 +82,7 @@
 							<td>${detail.state}</td>
 						</tr>
 						<tr>
-							<th>postalCode</th>
+							<th>postal Code</th>
 							<td>${detail.postalCode}</td>
 						</tr>
 						<tr>
@@ -91,11 +90,11 @@
 							<td>${detail.country}</td>
 						</tr>
 						<tr>
-							<th>salesRepEmployeeNumber</th>
+							<th>sales Rep Employee Number</th>
 							<td>${detail.salesRepEmployeeNumber}</td>
 						</tr>
 						<tr>
-							<th>creditLimit</th>
+							<th>credit Limit</th>
 							<td>${detail.creditLimit}</td>
 						</tr>
 					</tbody>
@@ -108,18 +107,18 @@
 			<div class="span12">
 
 				<table class="table table-bordered table-striped table-condensed">
-					<caption>order details</caption>
+					<caption>order list</caption>
 					<thead>
 						<tr>
 							<th>#</th>
 							<th>id</th>
-							<th>orderNumber</th>
-							<th>orderDate</th>
-							<th>requiredDate</th>
-							<th>shippedDate</th>
+							<th>order Number</th>
+							<th>order Date</th>
+							<th>required Date</th>
+							<th>shipped Date</th>
 							<th>status</th>
 							<th>comments</th>
-							<th>customerNumber</th>
+							<th>customer Number</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -127,7 +126,9 @@
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
 							<td>
-								<c:out value="${list.id}"/>
+								<a href="${pageContext.request.contextPath}/orders/detail/<c:out value="${list.id}"/>" class="btn">
+									Detail
+								</a>
 							</td>
 							<td><c:out value="${list.orderNumber}"/></td>
 							<td>

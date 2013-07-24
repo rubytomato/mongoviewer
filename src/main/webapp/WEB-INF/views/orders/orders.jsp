@@ -47,7 +47,6 @@
 			<div class="span12">
 
 				<c:if test="${not empty paging}">
-				<p>search result : count(${paging.resultCount} / ${paging.totalCount})</p>
 				<div class="pagination">
 					<ul>
 						<li class="disabled"><a href="#">&laquo;</a></li>
@@ -69,13 +68,13 @@
 						<tr>
 							<th>#</th>
 							<th>id</th>
-							<th>orderNumber</th>
-							<th>orderDate</th>
-							<th>requiredDate</th>
-							<th>shippedDate</th>
+							<th>order Number</th>
+							<th>order Date</th>
+							<th>required Date</th>
+							<th>shipped Date</th>
 							<th>status</th>
 							<th>comments</th>
-							<th>customerNumber</th>
+							<th>customer Number</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -83,8 +82,11 @@
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
 							<td>
-								<a href="${pageContext.request.contextPath}/orders/detail/<c:out value="${list.id}"/>">
-									<c:out value="${list.id}"/>
+								<a href="${pageContext.request.contextPath}/orders/detail/<c:out value="${list.id}"/>" class="btn">
+									Detail
+								</a>
+								<a href="${pageContext.request.contextPath}/orders/json/<c:out value="${list.id}"/>" class="btn btn-success">
+									json
 								</a>
 							</td>
 							<td><c:out value="${list.orderNumber}"/></td>
@@ -107,6 +109,13 @@
 
 			</div>
 		</div>
+
+		<div class="row-fluid">
+			<div class="span12">
+				<p>Showing ${paging.showingFrom} to ${paging.showingTo} of ${paging.resultCount} results / total ${paging.totalCount} entries.</p>
+			</div>
+		</div>
+
 		</c:if>
 
 		<div id="push"></div>

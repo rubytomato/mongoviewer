@@ -72,9 +72,9 @@
 						<tr>
 							<th>#</th>
 							<th>id</th>
-							<th>customerNumber</th>
-							<th>checkNumber</th>
-							<th>paymentDate</th>
+							<th>customer Number</th>
+							<th>check Number</th>
+							<th>payment Date</th>
 							<th>amount</th>
 						</tr>
 					</thead>
@@ -83,8 +83,11 @@
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
 							<td>
-								<a href="${pageContext.request.contextPath}/payments/detail/<c:out value="${list.id}"/>" class="btn btn-success">
-									<i class="icon-white icon-star"></i>&nbsp;Detail >
+								<a href="${pageContext.request.contextPath}/payments/detail/<c:out value="${list.id}"/>" class="btn">
+									Detail
+								</a>
+								<a href="${pageContext.request.contextPath}/payments/json/<c:out value="${list.id}"/>" class="btn btn-success">
+									json
 								</a>
 							</td>
 							<td><c:out value="${list.customerNumber}"/></td>

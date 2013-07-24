@@ -112,6 +112,18 @@ public class CustomersController extends BaseController implements IConstroller<
 
 	}
 
+	@RequestMapping(value = "/customers/json/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Customers json(@PathVariable(value="id") String id) {
+		logger.debug("CustomersController:[json] Passing through...");
+
+		Customers customer =
+			customersService.get(id);
+
+		return customer;
+
+	}
+
 	@ExceptionHandler(NullPointerException.class)
 	public String NullPointerException(IllegalStateException ex) {
 		return "error/nullpointer";

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+    targetNamespace="http://www.example.org/WideInteger"
+    xmlns="http://www.example.org/WideInteger"
+    xmlns:jaxb="http://java.sun.com/xml/ns/jaxb" jaxb:version="2.0"
+    elementFormDefault="qualified">
+
+  <xs:simpleType name="widgetInteger">
+    <xs:annotation>
+      <xs:appinfo>
+        <jaxb:typesafeEnumClass>
+            <jaxb:typesafeEnumMember value="1" name="one" />
+            <jaxb:typesafeEnumMember value="2" name="two" />
+            <jaxb:typesafeEnumMember value="3" name="three" />
+            <jaxb:typesafeEnumMember value="4" name="four" />
+        </jaxb:typesafeEnumClass>
+      </xs:appinfo>
+    </xs:annotation>
+    <xs:restriction base="xs:int">
+      <xs:enumeration value="1" />
+      <xs:enumeration value="2" />
+      <xs:enumeration value="3" />
+      <xs:enumeration value="4" />
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>

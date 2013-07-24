@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.mongoviewer.controller.IConstroller;
@@ -114,6 +115,18 @@ public class OrdersController extends BaseController implements IConstroller<Ord
 		modelAndView.addObject("orderDetailList", list);
 
 		return modelAndView;
+
+	}
+
+	@RequestMapping(value = "/orders/json/{id}", method = RequestMethod.GET)
+	@ResponseBody
+	public Orders json(@PathVariable(value="id") String id) {
+		logger.debug("OrdersController:[json] Passing through...");
+
+		Orders detail =
+			ordersService.get(id);
+		
+		return detail;
 
 	}
 
