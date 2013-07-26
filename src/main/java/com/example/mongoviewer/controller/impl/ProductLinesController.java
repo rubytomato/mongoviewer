@@ -27,6 +27,7 @@ import com.example.mongoviewer.mongodb.utils.MongoService;
 import com.example.mongoviewer.service.IService;
 
 @Controller
+@RequestMapping(value = "/productLines")
 public class ProductLinesController extends BaseController implements IConstroller<ProductLines> {
 	private static Logger logger = LoggerFactory.getLogger(ProductLinesController.class);
 
@@ -40,7 +41,7 @@ public class ProductLinesController extends BaseController implements IConstroll
 	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.controller.Constroller#top()
 	 */
-	@RequestMapping(value = "/productLines", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	@Override
 	public ModelAndView top() {
 		logger.debug("ProductLinesController:[top] Passing through...");
@@ -55,7 +56,7 @@ public class ProductLinesController extends BaseController implements IConstroll
 	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.controller.Constroller#search(java.lang.String, java.lang.Object, org.springframework.validation.BindingResult, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	@RequestMapping(value = "/productLines/search/{page}", method = RequestMethod.GET)
+	@RequestMapping(value = "/search/{page}", method = RequestMethod.GET)
 	@Override
 	public ModelAndView search(@PathVariable(value="page") String page, @ModelAttribute("productLines") ProductLines searchCondition,
 			BindingResult result, HttpServletRequest request, HttpServletResponse response) {
@@ -97,7 +98,7 @@ public class ProductLinesController extends BaseController implements IConstroll
 	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.controller.Constroller#detail(java.lang.String)
 	 */
-	@RequestMapping(value = "/productLines/detail/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
 	@Override
 	public ModelAndView detail(@PathVariable(value="id") String id) {
 		logger.debug("ProductLinesController:[detail] Passing through...");
@@ -112,7 +113,22 @@ public class ProductLinesController extends BaseController implements IConstroll
 
 	}
 
-	@RequestMapping(value = "/productLines/json/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	@Override
+	public ModelAndView edit(@PathVariable(value="id") String id) {
+		logger.debug("ProductLinesController:[edit] Passing through...");
+
+		ProductLines detail =
+			productLinesService.get(id);
+
+		ModelAndView modelAndView = new ModelAndView("productLines/edit");
+		modelAndView.addObject("detail", detail);
+
+		return modelAndView;
+
+	}
+
+	@RequestMapping(value = "/json/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public ProductLines json(@PathVariable(value="id") String id) {
 		logger.debug("ProductLinesController:[json] Passing through...");

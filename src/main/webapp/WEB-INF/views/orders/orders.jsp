@@ -43,52 +43,30 @@
 		</div>
 
 		<c:if test="${not empty searchResult}">
+
+		<%@ include file ="/WEB-INF/jsp/paging.jsp" %>
+
 		<div class="row-fluid">
-			<div class="span12">
+			<div class="span12 well">
 
-				<c:if test="${not empty paging}">
-				<div class="pagination">
-					<ul>
-						<li class="disabled"><a href="#">&laquo;</a></li>
-						<c:forEach items="${paging.pageList}" var="list" varStatus="idx">
-							<c:if test="${paging.numberOfCurrentPage == (idx.index+1)}">
-								<li class="active"><a href="${pageContext.request.contextPath}${list.url}">${list.numberOfPages}</a></li>
-							</c:if>
-							<c:if test="${paging.numberOfCurrentPage != (idx.index+1)}">
-								<li><a href="${pageContext.request.contextPath}${list.url}">${list.numberOfPages}</a></li>
-							</c:if>
-						</c:forEach>
-						<li class="disabled"><a href="#">&raquo;</a></li>
-					</ul>
-				</div>
-				</c:if>
-
-				<table class="table table-bordered table-striped table-condensed">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>id</th>
 							<th>order Number</th>
 							<th>order Date</th>
 							<th>required Date</th>
 							<th>shipped Date</th>
 							<th>status</th>
-							<th>comments</th>
 							<th>customer Number</th>
+							<th>detail</th>
+							<th>json</th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach items="${searchResult}" var="list" varStatus="idx">
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
-							<td>
-								<a href="${pageContext.request.contextPath}/orders/detail/<c:out value="${list.id}"/>" class="btn">
-									Detail
-								</a>
-								<a href="${pageContext.request.contextPath}/orders/json/<c:out value="${list.id}"/>" class="btn btn-success">
-									json
-								</a>
-							</td>
 							<td><c:out value="${list.orderNumber}"/></td>
 							<td>
 								<fmt:formatDate value="${list.orderDate}" pattern="yyyy/MM/dd HH:mm:ss" />
@@ -100,8 +78,17 @@
 								<fmt:formatDate value="${list.shippedDate}" pattern="yyyy/MM/dd HH:mm:ss" />
 							</td>
 							<td><c:out value="${list.status}"/></td>
-							<td><c:out value="${list.comments}"/></td>
 							<td><c:out value="${list.customerNumber}"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/orders/detail/<c:out value="${list.id}"/>" class="btn">
+									<i class="icon-edit"></i>
+								</a>
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/orders/json/<c:out value="${list.id}"/>" class="btn">
+									<i class="icon-download"></i>
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 					</tbody>

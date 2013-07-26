@@ -10,6 +10,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import com.example.mongoviewer.controller.pagination.Paging;
 import com.example.mongoviewer.mongodb.collection.Customers;
 import com.example.mongoviewer.mongodb.constants.CollectionNames;
 import com.example.mongoviewer.mongodb.constants.QualifierNames;
@@ -71,11 +72,11 @@ public class CustomersDao extends AbstractDao<Customers> {
 		Criteria criteria = makeCriteria(model);
 		if (criteria != null) {
 			Query query = new Query(criteria);
-			query.skip(calcSkipNum(page)).limit(LIMIT);
+			query.skip(calcSkipNum(page)).limit(Paging.PAGE_LIMIT);
 			return doFind(query, Customers.class);
 		} else {
 			Query query = new Query();
-			query.skip(calcSkipNum(page)).limit(LIMIT);
+			query.skip(calcSkipNum(page)).limit(Paging.PAGE_LIMIT);
 			return doFind(query, Customers.class);
 		}
 	}

@@ -12,6 +12,7 @@ import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import com.example.mongoviewer.controller.pagination.Paging;
 import com.example.mongoviewer.mongodb.dao.MongoDao;
 import com.example.mongoviewer.mongodb.utils.MongoService;
 import com.mongodb.WriteResult;
@@ -19,8 +20,6 @@ import com.mongodb.WriteResult;
 @Repository
 public abstract class AbstractDao<T> implements MongoDao<T> {
 	private static Logger logger = LoggerFactory.getLogger(AbstractDao.class);
-
-	protected final int LIMIT = 10;
 
 	@Autowired
 	private MongoTemplate template;
@@ -93,7 +92,7 @@ public abstract class AbstractDao<T> implements MongoDao<T> {
 	}
 
 	protected int calcSkipNum(int page) {
-		return (page - 1) * LIMIT;
+		return (page - 1) * Paging.PAGE_LIMIT;
 	}
 
 	abstract protected Criteria makeCriteriaByPk(T model);

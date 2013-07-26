@@ -14,4 +14,6 @@ public interface IConstroller<T> {
 
 	public ModelAndView detail(String id);
 
+	public ModelAndView edit(String id);
+
 }

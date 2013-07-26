@@ -32,13 +32,13 @@
         </header>
 
 		<div class="row-fluid">
-			<div class="span12">
+			<div class="span4 well">
+
 				<table class="table table-hover">
-					<caption>Orders</caption>
 					<thead>
 						<tr>
-							<th class="span1">field</th>
-							<th class="span11">value</th>
+							<th class="span4">field</th>
+							<th class="span8">value</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -82,15 +82,11 @@
 						</tr>
 					</tbody>
 				</table>
+
 			</div>
-		</div>
-
-
-		<c:if test="${not empty orderDetailList}">
-		<div class="row-fluid">
-			<div class="span12">
-
-				<table class="table table-bordered table-striped table-condensed">
+			<div class="span8 well">
+				<c:if test="${not empty orderDetailList}">
+				<table class="table table-striped">
 					<caption>order details</caption>
 					<thead>
 						<tr>
@@ -117,12 +113,12 @@
 					</c:forEach>
 					</tbody>
 				</table>
+				</c:if>
 
 			</div>
 		</div>
-		</c:if>
 
-		<%@ include file ="/WEB-INF/jsp/footer.jsp" %>
+		<div id="push"></div>
 	</div>
 
 </div>

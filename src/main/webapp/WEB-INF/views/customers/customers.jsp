@@ -36,7 +36,6 @@
 				<form class="form-inline" action="${pageContext.request.contextPath}/customers/search/1" method="get">
 					<input type="text" class="input-large" placeholder="customerNumber" name="customerNumber" value="${searchCondition.customerNumber}">
 					<input type="text" class="input-medium" placeholder="customerName" name="customerName" value="${searchCondition.customerName}">
-					<input type="text" class="input-small" placeholder="phone" name="phone" value="${searchCondition.phone}">
 					<input type="text" class="input-small" placeholder="city" name="city" value="${searchCondition.city}">
 					<input type="text" class="input-small" placeholder="country" name="country" value="${searchCondition.country}">
 					<button type="submit" class="btn">search</button>
@@ -45,78 +44,54 @@
 		</div>
 
 		<c:if test="${not empty searchResult}">
-				<c:if test="${not empty paging}">
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="pagination">
-					<ul>
-						<li class="disabled"><a href="#">&laquo;</a></li>
-						<c:forEach items="${paging.pageList}" var="list" varStatus="idx">
-							<c:if test="${paging.numberOfCurrentPage == (idx.index+1)}">
-								<li class="active"><a href="${pageContext.request.contextPath}${list.url}">${list.numberOfPages}</a></li>
-							</c:if>
-							<c:if test="${paging.numberOfCurrentPage != (idx.index+1)}">
-								<li><a href="${pageContext.request.contextPath}${list.url}">${list.numberOfPages}</a></li>
-							</c:if>
-						</c:forEach>
-						<li class="disabled"><a href="#">&raquo;</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-				</c:if>
+
+		<%@ include file ="/WEB-INF/jsp/paging.jsp" %>
 
 		<div class="row-fluid">
-
-
 			<div class="span12 well">
 
-
-				<table class="table table-striped table-condensed">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>#</th>
-							<th></th>
 							<th>customer Number</th>
 							<th>customer Name</th>
 							<th>contactLast Name</th>
 							<th>contactFirst Name</th>
-							<th>phone</th>
-							<th>address Line1</th>
-							<th>address Line2</th>
 							<th>city</th>
 							<th>state</th>
 							<th>postal Code</th>
 							<th>country</th>
 							<th>sales Rep Employee Number</th>
 							<th>credit Limit</th>
+							<th></th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach items="${searchResult}" var="list" varStatus="idx">
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
-							<td>
-								<a href="${pageContext.request.contextPath}/customers/detail/<c:out value="${list.id}"/>" class="btn">
-									Detail
-								</a>
-								<a href="${pageContext.request.contextPath}/customers/json/<c:out value="${list.id}"/>" class="btn btn-success">
-									json
-								</a>
-							</td>
 							<td><c:out value="${list.customerNumber}"/></td>
 							<td><c:out value="${list.customerName}"/></td>
 							<td><c:out value="${list.contactLastName}"/></td>
 							<td><c:out value="${list.contactFirstName}"/></td>
-							<td><c:out value="${list.phone}"/></td>
-							<td><c:out value="${list.addressLine1}"/></td>
-							<td><c:out value="${list.addressLine2}"/></td>
 							<td><c:out value="${list.city}"/></td>
 							<td><c:out value="${list.state}"/></td>
 							<td><c:out value="${list.postalCode}"/></td>
 							<td><c:out value="${list.country}"/></td>
 							<td><c:out value="${list.salesRepEmployeeNumber}"/></td>
 							<td><c:out value="${list.creditLimit}"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/customers/detail/<c:out value="${list.id}"/>" class="btn btn-primary">
+									<i class="icon-edit"></i>
+								</a>
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/customers/json/<c:out value="${list.id}"/>" class="btn btn-primary">
+									<i class="icon-download"></i>
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 					</tbody>

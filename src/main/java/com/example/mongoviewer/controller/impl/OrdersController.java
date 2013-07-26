@@ -27,6 +27,7 @@ import com.example.mongoviewer.mongodb.constants.QualifierNames;
 import com.example.mongoviewer.service.IService;
 
 @Controller
+@RequestMapping(value = "/orders")
 public class OrdersController extends BaseController implements IConstroller<Orders> {
 	private static Logger logger = LoggerFactory.getLogger(OrdersController.class);
 
@@ -38,7 +39,7 @@ public class OrdersController extends BaseController implements IConstroller<Ord
 	@Autowired
 	private IService<OrderDetails> orderDetailsService;
 
-	@RequestMapping(value = "/orders", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	@Override
 	public ModelAndView top() {
 		logger.debug("OrdersController:[top] Passing through...");
@@ -52,7 +53,7 @@ public class OrdersController extends BaseController implements IConstroller<Ord
 	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.controller.IConstroller#search(java.lang.String, java.lang.Object, org.springframework.validation.BindingResult, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	@RequestMapping(value = "/orders/search/{page}", method = RequestMethod.GET)
+	@RequestMapping(value = "/search/{page}", method = RequestMethod.GET)
 	@Override
 	public ModelAndView search(@PathVariable(value="page") String page, @ModelAttribute("orders") Orders searchCondition,
 			BindingResult result, HttpServletRequest request,
@@ -96,7 +97,7 @@ public class OrdersController extends BaseController implements IConstroller<Ord
 	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.controller.IConstroller#detail(java.lang.String)
 	 */
-	@RequestMapping(value = "/orders/detail/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
 	@Override
 	public ModelAndView detail(@PathVariable(value="id") String id) {
 		logger.debug("OrdersController:[detail] Passing through...");
@@ -118,7 +119,22 @@ public class OrdersController extends BaseController implements IConstroller<Ord
 
 	}
 
-	@RequestMapping(value = "/orders/json/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	@Override
+	public ModelAndView edit(@PathVariable(value="id") String id) {
+		logger.debug("OrdersController:[edit] Passing through...");
+
+		Orders detail =
+			ordersService.get(id);
+
+		ModelAndView modelAndView = new ModelAndView("orders/edit");
+		modelAndView.addObject("detail", detail);
+
+		return modelAndView;
+
+	}
+
+	@RequestMapping(value = "/json/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Orders json(@PathVariable(value="id") String id) {
 		logger.debug("OrdersController:[json] Passing through...");

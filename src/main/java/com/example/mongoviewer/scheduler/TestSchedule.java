@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 public class TestSchedule {
 	private static Logger logger = LoggerFactory.getLogger(TestSchedule.class);
 
-	@Scheduled(fixedRate = 2000)
+	@Scheduled(fixedRate = 60000)
 	public void greet() {
 		logger.debug("task schedule");
 	}

@@ -9,27 +9,30 @@ public class PageBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 5634404931457668605L;
 
-	private int numberOfPages;
+	private String numberOfPages;
 
 	private String url;
 
-	public PageBean(int numberOfPages, String url) {
+	private boolean disable;
+
+	public PageBean(String numberOfPages, String url, boolean disable) {
 		super();
 		this.numberOfPages = numberOfPages;
 		this.url = url;
+		this.disable = disable;
 	}
 
 	/**
 	 * @return the numberOfPages
 	 */
-	public int getNumberOfPages() {
+	public String getNumberOfPages() {
 		return numberOfPages;
 	}
 
 	/**
 	 * @param numberOfPages the numberOfPages to set
 	 */
-	public void setNumberOfPages(int numberOfPages) {
+	public void setNumberOfPages(String numberOfPages) {
 		this.numberOfPages = numberOfPages;
 	}
 
@@ -45,6 +48,20 @@ public class PageBean implements Serializable {
 	 */
 	public void setUrl(String url) {
 		this.url = url;
+	}
+
+	/**
+	 * @return the disable
+	 */
+	public boolean isDisable() {
+		return disable;
+	}
+
+	/**
+	 * @param disable the disable to set
+	 */
+	public void setDisable(boolean disable) {
+		this.disable = disable;
 	}
 
 }

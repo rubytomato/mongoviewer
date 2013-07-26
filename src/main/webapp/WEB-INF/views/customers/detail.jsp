@@ -32,12 +32,12 @@
         </header>
 
 		<div class="row-fluid">
-			<div class="span12">
+			<div class="span4 well">
 				<table class="table table-hover">
 					<thead>
 						<tr>
-							<th class="span1">field</th>
-							<th class="span11">value</th>
+							<th class="span4"></th>
+							<th class="span8"></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -99,37 +99,33 @@
 						</tr>
 					</tbody>
 				</table>
+
+				<a href="${pageContext.request.contextPath}/customers/edit/<c:out value="${detail.id}"/>" class="btn btn-large btn-primary">
+					Edit
+				</a>
+
 			</div>
-		</div>
+			<div class="span8 well">
 
-		<c:if test="${not empty orderList}">
-		<div class="row-fluid">
-			<div class="span12">
-
-				<table class="table table-bordered table-striped table-condensed">
+				<c:if test="${not empty orderList}">
+				<table class="table table-striped">
 					<caption>order list</caption>
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>id</th>
 							<th>order Number</th>
 							<th>order Date</th>
 							<th>required Date</th>
 							<th>shipped Date</th>
 							<th>status</th>
-							<th>comments</th>
 							<th>customer Number</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach items="${orderList}" var="list" varStatus="idx">
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
-							<td>
-								<a href="${pageContext.request.contextPath}/orders/detail/<c:out value="${list.id}"/>" class="btn">
-									Detail
-								</a>
-							</td>
 							<td><c:out value="${list.orderNumber}"/></td>
 							<td>
 								<fmt:formatDate value="${list.orderDate}" pattern="yyyy/MM/dd HH:mm:ss" />
@@ -141,19 +137,28 @@
 								<fmt:formatDate value="${list.shippedDate}" pattern="yyyy/MM/dd HH:mm:ss" />
 							</td>
 							<td><c:out value="${list.status}"/></td>
-							<td><c:out value="${list.comments}"/></td>
 							<td><c:out value="${list.customerNumber}"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/orders/detail/<c:out value="${list.id}"/>" class="btn btn-primary">
+									Detail
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 					</tbody>
 				</table>
+				</c:if>
 
 			</div>
 		</div>
-		</c:if>
+
+		<div class="row-fluid">
+			<div class="span12 well">
+			</div>
+		</div>
 
 		<div id="push"></div>
-    </div>
+	</div>
 
 </div>
 

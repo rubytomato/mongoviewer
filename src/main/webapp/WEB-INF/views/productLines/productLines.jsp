@@ -42,27 +42,13 @@
 		</div>
 
 		<c:if test="${not empty searchResult}">
+
+		<%@ include file ="/WEB-INF/jsp/paging.jsp" %>
+
 		<div class="row-fluid">
-			<div class="span12">
+			<div class="span12 well">
 
-				<c:if test="${not empty paging}">
-				<div class="pagination">
-					<ul>
-						<li class="disabled"><a href="#">&laquo;</a></li>
-						<c:forEach items="${paging.pageList}" var="list" varStatus="idx">
-							<c:if test="${paging.numberOfCurrentPage == (idx.index+1)}">
-								<li class="active"><a href="${pageContext.request.contextPath}${list.url}">${list.numberOfPages}</a></li>
-							</c:if>
-							<c:if test="${paging.numberOfCurrentPage != (idx.index+1)}">
-								<li><a href="${pageContext.request.contextPath}${list.url}">${list.numberOfPages}</a></li>
-							</c:if>
-						</c:forEach>
-						<li class="disabled"><a href="#">&raquo;</a></li>
-					</ul>
-				</div>
-				</c:if>
-
-				<table class="table table-bordered table-condensed">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>#</th>
@@ -78,10 +64,10 @@
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
 							<td>
-								<a href="${pageContext.request.contextPath}/customers/detail/<c:out value="${list.id}"/>" class="btn">
+								<a href="${pageContext.request.contextPath}/productLines/detail/<c:out value="${list.id}"/>" class="btn">
 									Detail
 								</a>
-								<a href="${pageContext.request.contextPath}/customers/json/<c:out value="${list.id}"/>" class="btn btn-success">
+								<a href="${pageContext.request.contextPath}/productLines/json/<c:out value="${list.id}"/>" class="btn btn-success">
 									json
 								</a>
 							</td>

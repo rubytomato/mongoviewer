@@ -79,7 +79,7 @@
 	<task:scheduler id="scheduler" pool-size="1" />
 
 	<task:scheduled-tasks scheduler="scheduler">
-		<task:scheduled ref="simpleProcessor" method="process" cron="3/10 * * * * ?"/>
+		<task:scheduled ref="simpleProcessor" method="process" cron="*/10 * * * * ?"/>
 	</task:scheduled-tasks>
 
     <import resource="mongo-jmx-context.xml"/>

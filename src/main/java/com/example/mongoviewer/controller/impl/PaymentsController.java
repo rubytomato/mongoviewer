@@ -26,6 +26,7 @@ import com.example.mongoviewer.service.IService;
 
 
 @Controller
+@RequestMapping(value = "/payments")
 public class PaymentsController extends BaseController implements IConstroller<Payments> {
 	private static Logger logger = LoggerFactory.getLogger(PaymentsController.class);
 
@@ -36,7 +37,7 @@ public class PaymentsController extends BaseController implements IConstroller<P
 	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.controller.IConstroller#top()
 	 */
-	@RequestMapping(value = "/payments", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	@Override
 	public ModelAndView top() {
 		logger.debug("PaymentsController:[top] Passing through...");
@@ -50,7 +51,7 @@ public class PaymentsController extends BaseController implements IConstroller<P
 	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.controller.IConstroller#search(java.lang.String, java.lang.Object, org.springframework.validation.BindingResult, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
 	 */
-	@RequestMapping(value = "/payments/search/{page}", method = RequestMethod.GET)
+	@RequestMapping(value = "/search/{page}", method = RequestMethod.GET)
 	@Override
 	public ModelAndView search(@PathVariable(value="page") String page, @ModelAttribute("payments") Payments searchCondition,
 			BindingResult result, HttpServletRequest request,
@@ -95,7 +96,7 @@ public class PaymentsController extends BaseController implements IConstroller<P
 	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.controller.IConstroller#detail(java.lang.String)
 	 */
-	@RequestMapping(value = "/payments/detail/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
 	@Override
 	public ModelAndView detail(@PathVariable(value="id") String id) {
 		logger.debug("PaymentsController:[detail] Passing through...");
@@ -110,7 +111,22 @@ public class PaymentsController extends BaseController implements IConstroller<P
 
 	}
 
-	@RequestMapping(value = "/payments/json/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	@Override
+	public ModelAndView edit(@PathVariable(value="id") String id) {
+		logger.debug("PaymentsController:[edit] Passing through...");
+
+		Payments detail =
+			paymentsService.get(id);
+
+		ModelAndView modelAndView = new ModelAndView("payments/edit");
+		modelAndView.addObject("detail", detail);
+
+		return modelAndView;
+
+	}
+
+	@RequestMapping(value = "/json/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Payments json(@PathVariable(value="id") String id) {
 		logger.debug("PaymentsController:[json] Passing through...");

@@ -28,18 +28,16 @@
     <div class="container-fluid top_start_point">
 
         <header class="header">
-            <h3><spring:message code="products.title" /></h3>
-            <p class="lead"><spring:message code="products.desc" /></p>
+            <h3><spring:message code="products.title" />&nbsp;<small><spring:message code="products.desc" /></small></h3>
         </header>
 
 		<div class="row-fluid">
-			<div class="span12">
+			<div class="span4 well">
 				<table class="table table-hover">
-					<caption>Products</caption>
 					<thead>
 						<tr>
-							<th class="span2">1</th>
-							<th class="span6">2</th>
+							<th class="span4">field</th>
+							<th class="span8">value</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -85,6 +83,37 @@
 						</tr>
 					</tbody>
 				</table>
+			</div>
+			<div class="span8 well">
+				<c:if test="${not empty orderDetailList}">
+				<table class="table table-striped">
+					<caption>order details</caption>
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>id</th>
+							<th>order Number</th>
+							<th>order Line Number</th>
+							<th>product Code</th>
+							<th>quantity Ordered</th>
+							<th>priceEach</th>
+						</tr>
+					</thead>
+					<tbody>
+					<c:forEach items="${orderDetailList}" var="list" varStatus="idx">
+						<tr>
+							<td><c:out value="${idx.index}"/></td>
+							<td><c:out value="${list.id}"/></td>
+							<td><c:out value="${list.orderNumber}"/></td>
+							<td><c:out value="${list.orderLineNumber}"/></td>
+							<td><c:out value="${list.productCode}"/></td>
+							<td><c:out value="${list.quantityOrdered}"/></td>
+							<td><c:out value="${list.priceEach}"/></td>
+						</tr>
+					</c:forEach>
+					</tbody>
+				</table>
+				</c:if>
 			</div>
 		</div>
 

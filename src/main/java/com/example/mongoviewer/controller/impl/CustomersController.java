@@ -12,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +30,7 @@ import com.example.mongoviewer.mongodb.constants.QualifierNames;
 import com.example.mongoviewer.service.IService;
 
 @Controller
+@RequestMapping(value = "/customers")
 public class CustomersController extends BaseController implements IConstroller<Customers> {
 	private static Logger logger = LoggerFactory.getLogger(CustomersController.class);
 
@@ -40,7 +42,7 @@ public class CustomersController extends BaseController implements IConstroller<
 	@Autowired
 	private IService<Orders> ordersService;
 
-	@RequestMapping(value = "/customers", method = RequestMethod.GET)
+	@RequestMapping(method = RequestMethod.GET)
 	@Override
 	public ModelAndView top() {
 		logger.debug("CustomersController:[top] Passing through...");
@@ -51,7 +53,7 @@ public class CustomersController extends BaseController implements IConstroller<
 
 	}
 
-	@RequestMapping(value = "/customers/search/{page}", method = RequestMethod.GET)
+	@RequestMapping(value = "/search/{page}", method = RequestMethod.GET)
 	@Override
 	public ModelAndView search(@PathVariable(value="page") String page, @ModelAttribute("customers") Customers searchCondition, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("CustomersController:[search] Passing through...");
@@ -90,7 +92,7 @@ public class CustomersController extends BaseController implements IConstroller<
 
 	}
 
-	@RequestMapping(value = "/customers/detail/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
 	@Override
 	public ModelAndView detail(@PathVariable(value="id") String id) {
 		logger.debug("CustomersController:[detail] Passing through...");
@@ -112,7 +114,42 @@ public class CustomersController extends BaseController implements IConstroller<
 
 	}
 
-	@RequestMapping(value = "/customers/json/{id}", method = RequestMethod.GET)
+	@RequestMapping(value = "/edit/{id}", method = RequestMethod.GET)
+	@Override
+	public ModelAndView edit(@PathVariable(value="id") String id) {
+		logger.debug("CustomersController:[edit] Passing through...");
+
+		Customers customer =
+			customersService.get(id);
+
+		ModelAndView modelAndView = new ModelAndView("customers/edit");
+		modelAndView.addObject("customers", customer);
+
+		return modelAndView;
+
+	}
+
+	@RequestMapping(value = "/save", method = RequestMethod.POST)
+	public String save(@ModelAttribute Customers customer, BindingResult result, Model model) {
+		logger.debug("CustomersController:[save] Passing through...");
+
+		if (result.hasErrors()) {
+			return "customers/edit";
+		}
+
+		if (customer == null) {
+			logger.debug("customer is null");
+		} else {
+			logger.debug(customer.toString());
+		}
+
+		model.addAttribute("detail", customer);
+
+		return "redirect:detail/" + customer.getId();
+
+	}
+
+	@RequestMapping(value = "/json/{id}", method = RequestMethod.GET)
 	@ResponseBody
 	public Customers json(@PathVariable(value="id") String id) {
 		logger.debug("CustomersController:[json] Passing through...");

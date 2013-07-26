@@ -43,26 +43,7 @@
 
 		<c:if test="${not empty searchResult}">
 
-		<c:if test="${not empty paging}">
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="pagination">
-					<ul>
-						<li class="disabled"><a href="#">&laquo;</a></li>
-						<c:forEach items="${paging.pageList}" var="list" varStatus="idx">
-							<c:if test="${paging.numberOfCurrentPage == (idx.index+1)}">
-								<li class="active"><a href="${pageContext.request.contextPath}${list.url}">${list.numberOfPages}</a></li>
-							</c:if>
-							<c:if test="${paging.numberOfCurrentPage != (idx.index+1)}">
-								<li><a href="${pageContext.request.contextPath}${list.url}">${list.numberOfPages}</a></li>
-							</c:if>
-						</c:forEach>
-						<li class="disabled"><a href="#">&raquo;</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		</c:if>
+		<%@ include file ="/WEB-INF/jsp/paging.jsp" %>
 
 		<div class="row-fluid">
 			<div class="span12 well">
@@ -71,31 +52,34 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>id</th>
 							<th>customer Number</th>
 							<th>check Number</th>
 							<th>payment Date</th>
 							<th>amount</th>
+							<th>detail</th>
+							<th>json</th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach items="${searchResult}" var="list" varStatus="idx">
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
-							<td>
-								<a href="${pageContext.request.contextPath}/payments/detail/<c:out value="${list.id}"/>" class="btn">
-									Detail
-								</a>
-								<a href="${pageContext.request.contextPath}/payments/json/<c:out value="${list.id}"/>" class="btn btn-success">
-									json
-								</a>
-							</td>
 							<td><c:out value="${list.customerNumber}"/></td>
 							<td><c:out value="${list.checkNumber}"/></td>
 							<td>
 								<fmt:formatDate value="${list.paymentDate}" pattern="yyyy/MM/dd HH:mm:ss" />
 							</td>
 							<td><c:out value="${list.amount}"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/payments/detail/<c:out value="${list.id}"/>" class="btn">
+									<i class="icon-edit"></i>
+								</a>
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/payments/json/<c:out value="${list.id}"/>" class="btn">
+									<i class="icon-download"></i>
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 					</tbody>

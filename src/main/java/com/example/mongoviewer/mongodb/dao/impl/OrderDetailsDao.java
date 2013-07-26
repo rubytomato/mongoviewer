@@ -7,11 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Order;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Repository;
 
+import com.example.mongoviewer.controller.pagination.Paging;
 import com.example.mongoviewer.mongodb.collection.OrderDetails;
 import com.example.mongoviewer.mongodb.constants.CollectionNames;
 import com.example.mongoviewer.mongodb.constants.QualifierNames;
@@ -72,13 +72,13 @@ public class OrderDetailsDao extends AbstractDao<OrderDetails> {
 		Criteria criteria = makeCriteria(model);
 		if (criteria != null) {
 			Query query = new Query(criteria);
-			query.skip(calcSkipNum(page)).limit(LIMIT);
+			query.skip(calcSkipNum(page)).limit(Paging.PAGE_LIMIT);
 			query.with(new Sort(Sort.Direction.ASC, "orderNumber").and(new Sort(Sort.Direction.DESC, "orderLineNumber")));
 			//query.with(new Sort(Sort.Direction.ASC, "orderLineNumber"));
 			return doFind(query, OrderDetails.class);
 		} else {
 			Query query = new Query();
-			query.skip(calcSkipNum(page)).limit(LIMIT);
+			query.skip(calcSkipNum(page)).limit(Paging.PAGE_LIMIT);
 			return doFind(query, OrderDetails.class);
 		}
 	}

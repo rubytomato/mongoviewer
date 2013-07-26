@@ -47,67 +47,49 @@
 
 		<c:if test="${not empty searchResult}">
 
-		<c:if test="${not empty paging}">
-		<div class="row-fluid">
-			<div class="span12">
-				<div class="pagination">
-					<ul>
-						<li class="disabled"><a href="#">&laquo;</a></li>
-						<c:forEach items="${paging.pageList}" var="list" varStatus="idx">
-							<c:if test="${paging.numberOfCurrentPage == (idx.index+1)}">
-								<li class="active"><a href="${pageContext.request.contextPath}${list.url}">${list.numberOfPages}</a></li>
-							</c:if>
-							<c:if test="${paging.numberOfCurrentPage != (idx.index+1)}">
-								<li><a href="${pageContext.request.contextPath}${list.url}">${list.numberOfPages}</a></li>
-							</c:if>
-						</c:forEach>
-						<li class="disabled"><a href="#">&raquo;</a></li>
-					</ul>
-				</div>
-			</div>
-		</div>
-		</c:if>
+		<%@ include file ="/WEB-INF/jsp/paging.jsp" %>
 
 		<div class="row-fluid">
-			<div class="span12">
+			<div class="span12 well">
 
-				<table class="table table-bordered table-striped table-condensed">
+				<table class="table table-striped">
 					<thead>
 						<tr>
 							<th>#</th>
-							<th>id</th>
 							<th>product Code</th>
 							<th>product Name</th>
 							<th>product Line</th>
 							<th>product Scale</th>
 							<th>product Vendor</th>
-							<th>product Description</th>
 							<th>quantity In Stock</th>
 							<th>buy Price</th>
 							<th>MSRP</th>
+							<th>detail</th>
+							<th>json</th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach items="${searchResult}" var="list" varStatus="idx">
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
-							<td>
-								<a href="${pageContext.request.contextPath}/products/detail/<c:out value="${list.id}"/>" class="btn">
-									Detail
-								</a>
-								<a href="${pageContext.request.contextPath}/products/json/<c:out value="${list.id}"/>" class="btn btn-success">
-									json
-								</a>
-							</td>
 							<td><c:out value="${list.productCode}"/></td>
 							<td><c:out value="${list.productName}"/></td>
 							<td><c:out value="${list.productLine}"/></td>
 							<td><c:out value="${list.productScale}"/></td>
 							<td><c:out value="${list.productVendor}"/></td>
-							<td><c:out value="${list.productDescription}"/></td>
 							<td><c:out value="${list.quantityInStock}"/></td>
 							<td><c:out value="${list.buyPrice}"/></td>
 							<td><c:out value="${list.MSRP}"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/products/detail/<c:out value="${list.id}"/>" class="btn">
+									<i class="icon-edit"></i>
+								</a>
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/products/json/<c:out value="${list.id}"/>" class="btn">
+									<i class="icon-download"></i>
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 					</tbody>

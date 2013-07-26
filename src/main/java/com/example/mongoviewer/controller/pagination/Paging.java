@@ -5,6 +5,8 @@ import java.util.List;
 
 public class Paging {
 
+	public static final int PAGE_LIMIT = 20;
+
 	/**
 	 * 全件
 	 */
@@ -31,6 +33,9 @@ public class Paging {
 
 	private List<PageBean> pageList;
 
+	private String leftArrow;
+	private String rightArrow;
+
 	public Paging(long totalCount, long resultCount, int numberOfCurrentPage, String url, String queryString) {
 		super();
 		this.totalCount = totalCount;
@@ -50,21 +55,50 @@ public class Paging {
 		//1    1    10
 		//2    11   20
 		//3    21   30
-		showingFrom = (numberOfCurrentPage - 1) * 10 + 1;
+		showingFrom = (numberOfCurrentPage - 1) * Paging.PAGE_LIMIT + 1;
 
-		showingTo = (numberOfCurrentPage * 10);
+		showingTo = (numberOfCurrentPage * Paging.PAGE_LIMIT);
 		if (showingTo > resultCount) {
 			showingTo = resultCount;
 		}
 
+		//現在の表示位置が1ページ目でなければ前頁のlink
+		if (numberOfCurrentPage != 1) {
+			leftArrow = url + Integer.valueOf(numberOfCurrentPage-1).toString();
+			if (queryString != null) {
+				leftArrow += parseQueryString();
+			}
+		} else {
+			leftArrow = null;
+		}
+
+		//現在の表示位置が最後のページでなければ次ページのlink
+		if (numberOfCurrentPage != numberOfPages) {
+			rightArrow = url + Integer.valueOf(numberOfCurrentPage + 1).toString();
+			if (queryString != null) {
+				rightArrow += parseQueryString();
+			}
+		} else {
+			rightArrow = null;
+		}
+
 		for (int i=0; i<numberOfPages; i++) {
+
 			int page = i+1;
+
 			String req = url + Integer.valueOf(page).toString();
 			if (queryString != null) {
 				req += parseQueryString();
 			}
-			PageBean p = new PageBean(page, req);
+
+			boolean disable = false;
+			if (i == numberOfCurrentPage-1) {
+				disable = true;
+			}
+
+			PageBean p = new PageBean(Integer.toString(page), req, disable);
 			pageList.add(p);
+
 		}
 
 	}
@@ -75,8 +109,8 @@ public class Paging {
 	 * @return
 	 */
 	private int calcNumberOfPages() {
-		int numberOfPages = (int)(resultCount / 10L);
-		if (resultCount % 10L > 0) {
+		int numberOfPages = (int)resultCount / Paging.PAGE_LIMIT;
+		if ((int)resultCount % Paging.PAGE_LIMIT > 0) {
 			numberOfPages += 1;
 		}
 		return numberOfPages;
@@ -195,6 +229,34 @@ public class Paging {
 	 */
 	public void setPageList(List<PageBean> pageList) {
 		this.pageList = pageList;
+	}
+
+	/**
+	 * @return the leftArrow
+	 */
+	public String getLeftArrow() {
+		return leftArrow;
+	}
+
+	/**
+	 * @param leftArrow the leftArrow to set
+	 */
+	public void setLeftArrow(String leftArrow) {
+		this.leftArrow = leftArrow;
+	}
+
+	/**
+	 * @return the rightArrow
+	 */
+	public String getRightArrow() {
+		return rightArrow;
+	}
+
+	/**
+	 * @param rightArrow the rightArrow to set
+	 */
+	public void setRightArrow(String rightArrow) {
+		this.rightArrow = rightArrow;
 	}
 
 }
