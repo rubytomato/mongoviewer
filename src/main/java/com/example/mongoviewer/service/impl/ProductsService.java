@@ -35,10 +35,18 @@ public class ProductsService implements IService<Products> {
 
 	@Override
 	public Products get(String id) {
-
 		Products product = 
 			dao.findById(id);
+		return product;
+	}
 
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#find(java.lang.Object)
+	 */
+	@Override
+	public Products find(Products searchCondition) {
+		Products product = 
+			dao.findByPK(searchCondition);
 		return product;
 	}
 

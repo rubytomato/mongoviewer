@@ -64,6 +64,17 @@ public class CustomersDao extends AbstractDao<Customers> {
 	}
 
 	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.mongodb.dao.MongoDao#findByPK(java.lang.Object)
+	 */
+	@Override
+	public Customers findByPK(Customers model) {
+		logger.debug("findByPK IN");
+		Query query = new Query(makeCriteriaByPk(model));
+		logger.debug(query.toString());
+		return doFindOne(query, Customers.class);
+	}
+
+	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.mongodb.dao.MongoDao#list(int, java.lang.Object)
 	 */
 	@Override

@@ -63,6 +63,16 @@ public class PaymentsDao extends AbstractDao<Payments> {
 	}
 
 	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.mongodb.dao.MongoDao#findByPK(java.lang.Object)
+	 */
+	@Override
+	public Payments findByPK(Payments model) {
+		logger.debug("findByPK IN");
+		Query query = new Query(makeCriteriaByPk(model));
+		return doFindOne(query, Payments.class);
+	}
+
+	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.mongodb.dao.MongoDao#list(int, java.lang.Object)
 	 */
 	@Override

@@ -8,7 +8,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import org.codehaus.jackson.JsonGenerationException;
+import org.codehaus.jackson.map.JsonMappingException;
 import org.codehaus.jackson.map.ObjectMapper;
+import org.codehaus.jackson.map.ObjectWriter;
 import org.codehaus.jackson.type.JavaType;
 import org.springframework.util.ResourceUtils;
 
@@ -61,6 +64,30 @@ public class JsonLoader {
 
 		return list;
 
+	}
+
+	public static String toJson(Object value) {
+
+		String json = null;
+
+		ObjectMapper objectMapper = new ObjectMapper();
+		ObjectWriter objectWriter;
+		try {
+			objectWriter = objectMapper.writerWithDefaultPrettyPrinter();
+			json = objectWriter.writeValueAsString(value);
+			//json = objectMapper.writeValueAsString(value);
+		} catch (JsonGenerationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (JsonMappingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return json;
 	}
 
 }

@@ -40,14 +40,22 @@ public class OrderDetailsService implements IService<OrderDetails> {
 	}
 
 	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#find(java.lang.Object)
+	 */
+	@Override
+	public OrderDetails find(OrderDetails searchCondition) {
+		OrderDetails orderDetails =
+			dao.findByPK(searchCondition);
+		return orderDetails;
+	}
+
+	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.service.IService#get(java.lang.String)
 	 */
 	@Override
 	public OrderDetails get(String id) {
-
 		OrderDetails orderDetails = 
 			dao.findById(id);
-
 		return orderDetails;
 	}
 
@@ -56,7 +64,6 @@ public class OrderDetailsService implements IService<OrderDetails> {
 	 */
 	@Override
 	public List<OrderDetails> search(int page, OrderDetails searchCondition) {
-
 		logger.debug("search condition : " + searchCondition.toString());
 
 		List<OrderDetails> list =

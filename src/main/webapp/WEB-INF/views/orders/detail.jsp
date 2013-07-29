@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/WEB-INF/jsp/header.jsp" %>
+<%@ include file ="/WEB-INF/views/includePage/header.jsp" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,7 +23,7 @@
 
 <div id="wrap">
 
-    <%@ include file ="/WEB-INF/jsp/navi.jsp" %>
+    <%@ include file ="/WEB-INF/views/includePage/navi.jsp" %>
 
     <div class="container-fluid top_start_point">
 
@@ -83,6 +83,61 @@
 					</tbody>
 				</table>
 
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th class="span4">field</th>
+							<th class="span8">value</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>id</th>
+							<td>${customer.id}</td>
+						</tr>
+						<tr>
+							<th>customer Number</th>
+							<td><c:out value="${customer.customerNumber}"/></td>
+						</tr>
+						<tr>
+							<th>customer Name</th>
+							<td><c:out value="${customer.customerName}"/></td>
+						</tr>
+						<tr>
+							<th>contact Last Name</th>
+							<td><c:out value="${customer.contactLastName}"/></td>
+						</tr>
+						<tr>
+							<th>contact First Name</th>
+							<td><c:out value="${customer.contactFirstName}"/></td>
+						</tr>
+						<tr>
+							<th>city</th>
+							<td><c:out value="${customer.city}"/></td>
+						</tr>
+						<tr>
+							<th>state</th>
+							<td><c:out value="${customer.state}"/></td>
+						</tr>
+						<tr>
+							<th>postal Code</th>
+							<td><c:out value="${customer.postalCode}"/></td>
+						</tr>
+						<tr>
+							<th>country</th>
+							<td><c:out value="${customer.country}"/></td>
+						</tr>
+						<tr>
+							<th>sales Rep Employee Number</th>
+							<td><c:out value="${customer.salesRepEmployeeNumber}"/></td>
+						</tr>
+						<tr>
+							<th>credit Limit</th>
+							<td><c:out value="${customer.creditLimit}"/></td>
+						</tr>
+					</tbody>
+				</table>
+
 			</div>
 			<div class="span8 well">
 				<c:if test="${not empty orderDetailList}">
@@ -96,7 +151,7 @@
 							<th>order Line Number</th>
 							<th>product Code</th>
 							<th>quantity Ordered</th>
-							<th>priceEach</th>
+							<th>price Each</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -123,7 +178,7 @@
 
 </div>
 
-<%@ include file ="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file ="/WEB-INF/views/includePage/footer.jsp" %>
 
 </body>
 </html>

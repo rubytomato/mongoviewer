@@ -35,10 +35,18 @@ public class OrdersService implements IService<Orders> {
 
 	@Override
 	public Orders get(String id) {
-
 		Orders order = 
 			dao.findById(id);
+		return order;
+	}
 
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#find(java.lang.Object)
+	 */
+	@Override
+	public Orders find(Orders searchCondition) {
+		Orders order = 
+			dao.findByPK(searchCondition);
 		return order;
 	}
 

@@ -10,6 +10,9 @@ import org.springframework.validation.BindingResult;
 public class BaseController {
 	private static Logger logger = LoggerFactory.getLogger(BaseController.class);
 
+	protected static final String PAGING = "paging";
+	protected static final String ACTIVE_NAVI = "activeNavi";
+
 	protected int calcCurrentPage(String page) {
 		return page == null ? 1 : Integer.valueOf(page).intValue();
 	}

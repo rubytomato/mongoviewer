@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.example.mongoviewer.controller.IConstroller;
 import com.example.mongoviewer.controller.pagination.Paging;
+import com.example.mongoviewer.mongodb.collection.Customers;
 import com.example.mongoviewer.mongodb.collection.OrderDetails;
 import com.example.mongoviewer.mongodb.collection.Orders;
 import com.example.mongoviewer.mongodb.constants.QualifierNames;
@@ -39,12 +40,17 @@ public class OrdersController extends BaseController implements IConstroller<Ord
 	@Autowired
 	private IService<OrderDetails> orderDetailsService;
 
+	@Qualifier(QualifierNames.SERVCIE_CUSTOMERS)
+	@Autowired
+	private IService<Customers> customersService;
+
 	@RequestMapping(method = RequestMethod.GET)
 	@Override
 	public ModelAndView top() {
 		logger.debug("OrdersController:[top] Passing through...");
 
 		ModelAndView modelAndView = new ModelAndView("orders/orders");
+		modelAndView.addObject(ACTIVE_NAVI, "orders");
 
 		return modelAndView;
 
@@ -88,7 +94,8 @@ public class OrdersController extends BaseController implements IConstroller<Ord
 		ModelAndView modelAndView = new ModelAndView("orders/orders");
 		modelAndView.addObject("searchCondition", searchCondition);
 		modelAndView.addObject("searchResult", searchResult);
-		modelAndView.addObject("paging", paging);
+		modelAndView.addObject(PAGING, paging);
+		modelAndView.addObject(ACTIVE_NAVI, "orders");
 
 		return modelAndView;
 
@@ -111,9 +118,17 @@ public class OrdersController extends BaseController implements IConstroller<Ord
 		List<OrderDetails> list =
 			orderDetailsService.search(1, searchCondition);
 
+		Customers searchCustomer = new Customers();
+		searchCustomer.setCustomerNumber(detail.getCustomerNumber());
+
+		Customers customer =
+			customersService.find(searchCustomer);
+
 		ModelAndView modelAndView = new ModelAndView("orders/detail");
 		modelAndView.addObject("detail", detail);
 		modelAndView.addObject("orderDetailList", list);
+		modelAndView.addObject("customer", customer);
+		modelAndView.addObject(ACTIVE_NAVI, "orders");
 
 		return modelAndView;
 
@@ -129,6 +144,7 @@ public class OrdersController extends BaseController implements IConstroller<Ord
 
 		ModelAndView modelAndView = new ModelAndView("orders/edit");
 		modelAndView.addObject("detail", detail);
+		modelAndView.addObject(ACTIVE_NAVI, "orders");
 
 		return modelAndView;
 

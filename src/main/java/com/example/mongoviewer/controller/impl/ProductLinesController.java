@@ -47,6 +47,7 @@ public class ProductLinesController extends BaseController implements IConstroll
 		logger.debug("ProductLinesController:[top] Passing through...");
 
 		ModelAndView modelAndView = new ModelAndView("productLines/productLines");
+		modelAndView.addObject(ACTIVE_NAVI, "productlines");
 
 		return modelAndView;
 
@@ -88,7 +89,8 @@ public class ProductLinesController extends BaseController implements IConstroll
 		ModelAndView modelAndView = new ModelAndView("productLines/productLines");
 		modelAndView.addObject("searchCondition", searchCondition);
 		modelAndView.addObject("searchResult", searchResult);
-		modelAndView.addObject("paging", paging);
+		modelAndView.addObject(PAGING, paging);
+		modelAndView.addObject(ACTIVE_NAVI, "productlines");
 
 		return modelAndView;
 
@@ -108,6 +110,7 @@ public class ProductLinesController extends BaseController implements IConstroll
 
 		ModelAndView modelAndView = new ModelAndView("productLines/detail");
 		modelAndView.addObject("detail", detail);
+		modelAndView.addObject(ACTIVE_NAVI, "productlines");
 
 		return modelAndView;
 
@@ -123,6 +126,7 @@ public class ProductLinesController extends BaseController implements IConstroll
 
 		ModelAndView modelAndView = new ModelAndView("productLines/edit");
 		modelAndView.addObject("detail", detail);
+		modelAndView.addObject(ACTIVE_NAVI, "productlines");
 
 		return modelAndView;
 

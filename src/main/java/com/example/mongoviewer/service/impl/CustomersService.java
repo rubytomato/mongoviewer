@@ -35,16 +35,23 @@ public class CustomersService implements IService<Customers> {
 
 	@Override
 	public Customers get(String id) {
-
-		Customers customer = 
+		Customers customer =
 			dao.findById(id);
+		return customer;
+	}
 
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#find(java.lang.Object)
+	 */
+	@Override
+	public Customers find(Customers searchCondition) {
+		Customers customer =
+			dao.findByPK(searchCondition);
 		return customer;
 	}
 
 	@Override
 	public List<Customers> search(int page, Customers searchCondition) {
-
 		logger.debug("search condition : " + searchCondition.toString());
 
 		List<Customers> list =

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/WEB-INF/jsp/header.jsp" %>
+<%@ include file ="/WEB-INF/views/includePage/header.jsp" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,7 +23,7 @@
 
 <div id="wrap">
 
-    <%@ include file ="/WEB-INF/jsp/navi.jsp" %>
+    <%@ include file ="/WEB-INF/views/includePage/navi.jsp" %>
 
     <div class="container-fluid top_start_point">
 
@@ -45,7 +45,7 @@
 
 		<c:if test="${not empty searchResult}">
 
-		<%@ include file ="/WEB-INF/jsp/paging.jsp" %>
+		<%@ include file ="/WEB-INF/views/includePage/paging.jsp" %>
 
 		<div class="row-fluid">
 			<div class="span12 well">
@@ -56,8 +56,8 @@
 							<th>#</th>
 							<th>customer Number</th>
 							<th>customer Name</th>
-							<th>contactLast Name</th>
-							<th>contactFirst Name</th>
+							<th>contact Last Name</th>
+							<th>contact First Name</th>
 							<th>city</th>
 							<th>state</th>
 							<th>postal Code</th>
@@ -83,12 +83,12 @@
 							<td><c:out value="${list.salesRepEmployeeNumber}"/></td>
 							<td><c:out value="${list.creditLimit}"/></td>
 							<td>
-								<a href="${pageContext.request.contextPath}/customers/detail/<c:out value="${list.id}"/>" class="btn btn-primary">
+								<a href="${pageContext.request.contextPath}/customers/detail/<c:out value="${list.id}"/>" class="btn">
 									<i class="icon-edit"></i>
 								</a>
 							</td>
 							<td>
-								<a href="${pageContext.request.contextPath}/customers/json/<c:out value="${list.id}"/>" class="btn btn-primary">
+								<a href="${pageContext.request.contextPath}/customers/json/<c:out value="${list.id}"/>" class="btn">
 									<i class="icon-download"></i>
 								</a>
 							</td>
@@ -113,7 +113,7 @@
 
 </div>
 
-<%@ include file ="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file ="/WEB-INF/views/includePage/footer.jsp" %>
 
 </body>
 </html>

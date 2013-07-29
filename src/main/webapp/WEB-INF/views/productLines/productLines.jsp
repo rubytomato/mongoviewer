@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/WEB-INF/jsp/header.jsp" %>
+<%@ include file ="/WEB-INF/views/includePage/header.jsp" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,7 +23,7 @@
 
 <div id="wrap">
 
-    <%@ include file ="/WEB-INF/jsp/navi.jsp" %>
+    <%@ include file ="/WEB-INF/views/includePage/navi.jsp" %>
 
     <div class="container-fluid top_start_point">
 
@@ -43,7 +43,7 @@
 
 		<c:if test="${not empty searchResult}">
 
-		<%@ include file ="/WEB-INF/jsp/paging.jsp" %>
+		<%@ include file ="/WEB-INF/views/includePage/paging.jsp" %>
 
 		<div class="row-fluid">
 			<div class="span12 well">
@@ -52,29 +52,32 @@
 					<thead>
 						<tr>
 							<th>#</th>
-							<th></th>
 							<th>productLine</th>
 							<th>textDescription</th>
 							<th>htmlDescription</th>
 							<th>image</th>
+							<th>detail</th>
+							<th>json</th>
 						</tr>
 					</thead>
 					<tbody>
 					<c:forEach items="${searchResult}" var="list" varStatus="idx">
 						<tr>
 							<td><c:out value="${idx.index}"/></td>
-							<td>
-								<a href="${pageContext.request.contextPath}/productLines/detail/<c:out value="${list.id}"/>" class="btn">
-									Detail
-								</a>
-								<a href="${pageContext.request.contextPath}/productLines/json/<c:out value="${list.id}"/>" class="btn btn-success">
-									json
-								</a>
-							</td>
 							<td><c:out value="${list.productLine}"/></td>
 							<td><c:out value="${list.textDescription}"/></td>
 							<td><c:out value="${list.htmlDescription}"/></td>
 							<td><c:out value="${list.image}"/></td>
+							<td>
+								<a href="${pageContext.request.contextPath}/productLines/detail/<c:out value="${list.id}"/>" class="btn">
+									<i class="icon-edit"></i>
+								</a>
+							</td>
+							<td>
+								<a href="${pageContext.request.contextPath}/productLines/json/<c:out value="${list.id}"/>" class="btn">
+									<i class="icon-download"></i>
+								</a>
+							</td>
 						</tr>
 					</c:forEach>
 					</tbody>
@@ -96,7 +99,7 @@
 
 </div>
 
-<%@ include file ="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file ="/WEB-INF/views/includePage/footer.jsp" %>
 
 </body>
 </html>

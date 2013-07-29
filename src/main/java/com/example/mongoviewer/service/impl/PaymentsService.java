@@ -44,10 +44,18 @@ public class PaymentsService implements IService<Payments> {
 	 */
 	@Override
 	public Payments get(String id) {
-
 		Payments model = 
 			dao.findById(id);
+		return model;
+	}
 
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#find(java.lang.Object)
+	 */
+	@Override
+	public Payments find(Payments searchCondition) {
+		Payments model = 
+			dao.findByPK(searchCondition);
 		return model;
 	}
 
@@ -56,7 +64,6 @@ public class PaymentsService implements IService<Payments> {
 	 */
 	@Override
 	public List<Payments> search(int page, Payments searchCondition) {
-
 		logger.debug("search condition : " + searchCondition.toString());
 
 		List<Payments> list =

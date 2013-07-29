@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/WEB-INF/jsp/header.jsp" %>
+<%@ include file ="/WEB-INF/views/includePage/header.jsp" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,7 +23,7 @@
 
 <div id="wrap">
 
-    <%@ include file ="/WEB-INF/jsp/navi.jsp" %>
+    <%@ include file ="/WEB-INF/views/includePage/navi.jsp" %>
 
     <div class="container-fluid top_start_point">
 
@@ -153,7 +153,14 @@
 		</div>
 
 		<div class="row-fluid">
-			<div class="span12 well">
+			<div class="span6 well">
+				<h5>JSON&nbsp;<small>json pretty print</small></h5>
+			<c:if test="${not empty json}">
+			<textarea rows="10" class="span12">${json}</textarea>
+			</c:if>
+			</div>
+			<div class="span6 well">
+				<pre class="prettyprint linenums">${json}</pre>
 			</div>
 		</div>
 
@@ -162,7 +169,7 @@
 
 </div>
 
-<%@ include file ="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file ="/WEB-INF/views/includePage/footer.jsp" %>
 
 </body>
 </html>

@@ -12,6 +12,8 @@ public interface MongoDao<T> {
 
 	public T find(T model);
 
+	public T findByPK(T model);
+
 	public List<T> list(int page, T model);
 
 	public List<T> list(T model);

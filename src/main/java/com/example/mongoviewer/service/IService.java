@@ -10,6 +10,8 @@ public interface IService<T> {
 
 	public T get(String id);
 
+	public T find(T searchCondition);
+
 	public List<T> search(int page, T searchCondition);
 
 }

@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ include file ="/WEB-INF/jsp/header.jsp" %>
+<%@ include file ="/WEB-INF/views/includePage/header.jsp" %>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -15,7 +15,7 @@
     <link href="${pageContext.request.contextPath}/resources/css/custom.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
 
 <title><spring:message code="index.title"/></title>
@@ -24,7 +24,7 @@
 
 <div id="wrap">
 
-    <%@ include file ="/WEB-INF/jsp/navi.jsp" %>
+    <%@ include file ="/WEB-INF/views/includePage/navi.jsp" %>
 
     <div class="container top_start_point">
 
@@ -85,7 +85,7 @@
 
 </div>
 
-<%@ include file ="/WEB-INF/jsp/footer.jsp" %>
+<%@ include file ="/WEB-INF/views/includePage/footer.jsp" %>
 
 </body>
 </html>

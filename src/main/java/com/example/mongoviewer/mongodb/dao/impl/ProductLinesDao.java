@@ -63,6 +63,16 @@ public class ProductLinesDao extends AbstractDao<ProductLines> {
 	}
 
 	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.mongodb.dao.MongoDao#findByPK(java.lang.Object)
+	 */
+	@Override
+	public ProductLines findByPK(ProductLines model) {
+		logger.debug("find IN");
+		Query query = new Query(makeCriteriaByPk(model));
+		return doFindOne(query, ProductLines.class);
+	}
+
+	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.mongodb.dao.MongoDao#list(int, java.lang.Object)
 	 */
 	@Override

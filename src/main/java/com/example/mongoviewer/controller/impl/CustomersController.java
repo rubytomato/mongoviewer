@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StopWatch;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -28,6 +29,7 @@ import com.example.mongoviewer.mongodb.collection.Customers;
 import com.example.mongoviewer.mongodb.collection.Orders;
 import com.example.mongoviewer.mongodb.constants.QualifierNames;
 import com.example.mongoviewer.service.IService;
+import com.example.mongoviewer.utils.JsonLoader;
 
 @Controller
 @RequestMapping(value = "/customers")
@@ -48,6 +50,7 @@ public class CustomersController extends BaseController implements IConstroller<
 		logger.debug("CustomersController:[top] Passing through...");
 
 		ModelAndView modelAndView = new ModelAndView("customers/customers");
+		modelAndView.addObject(ACTIVE_NAVI, "customers");
 
 		return modelAndView;
 
@@ -58,6 +61,8 @@ public class CustomersController extends BaseController implements IConstroller<
 	public ModelAndView search(@PathVariable(value="page") String page, @ModelAttribute("customers") Customers searchCondition, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
 		logger.debug("CustomersController:[search] Passing through...");
 
+		StopWatch stopWatch = new StopWatch("CustomersController:[search]");
+
 		logger.debug("[page] : " + page);
 
 		if (logger.isDebugEnabled()) {
@@ -66,19 +71,31 @@ public class CustomersController extends BaseController implements IConstroller<
 
 		debug(result, request, response);
 
+		stopWatch.start("customersService.count [all]");
+
 		//全件の件数
 		long totalCount =
 			customersService.count();
+
+		stopWatch.stop();
+
+		stopWatch.start("customersService.count [condition]");
 
 		//検索条件に一致する件数
 		long resultCount =
 			customersService.count(searchCondition);
 
+		stopWatch.stop();
+
 		int numberOfCurrentPage = calcCurrentPage(page);
+
+		stopWatch.start("customersService.search [condition]");
 
 		//検索条件に一致するコレクション
 		List<Customers> searchResult =
 			customersService.search(numberOfCurrentPage, searchCondition);
+
+		stopWatch.stop();
 
 		Paging paging = new Paging(totalCount, resultCount, numberOfCurrentPage, "/customers/search/", request.getQueryString());
 		paging.makePageList();
@@ -86,7 +103,10 @@ public class CustomersController extends BaseController implements IConstroller<
 		ModelAndView modelAndView = new ModelAndView("customers/customers");
 		modelAndView.addObject("searchCondition", searchCondition);
 		modelAndView.addObject("searchResult", searchResult);
-		modelAndView.addObject("paging", paging);
+		modelAndView.addObject(PAGING, paging);
+		modelAndView.addObject(ACTIVE_NAVI, "customers");
+
+		logger.debug(stopWatch.prettyPrint());
 
 		return modelAndView;
 
@@ -100,6 +120,11 @@ public class CustomersController extends BaseController implements IConstroller<
 		Customers customer =
 			customersService.get(id);
 
+		String json = "{}";
+		if (customer != null) {
+			json = JsonLoader.toJson(customer);
+		}
+
 		Orders order = new Orders();
 		order.setCustomerNumber(customer.getCustomerNumber());
 
@@ -109,6 +134,8 @@ public class CustomersController extends BaseController implements IConstroller<
 		ModelAndView modelAndView = new ModelAndView("customers/detail");
 		modelAndView.addObject("detail", customer);
 		modelAndView.addObject("orderList", orderList);
+		modelAndView.addObject("json", json);
+		modelAndView.addObject(ACTIVE_NAVI, "customers");
 
 		return modelAndView;
 
@@ -124,6 +151,7 @@ public class CustomersController extends BaseController implements IConstroller<
 
 		ModelAndView modelAndView = new ModelAndView("customers/edit");
 		modelAndView.addObject("customers", customer);
+		modelAndView.addObject(ACTIVE_NAVI, "customers");
 
 		return modelAndView;
 

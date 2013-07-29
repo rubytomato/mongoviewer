@@ -43,6 +43,7 @@ public class PaymentsController extends BaseController implements IConstroller<P
 		logger.debug("PaymentsController:[top] Passing through...");
 
 		ModelAndView modelAndView = new ModelAndView("payments/payments");
+		modelAndView.addObject(ACTIVE_NAVI, "payments");
 
 		return modelAndView;
 
@@ -87,7 +88,8 @@ public class PaymentsController extends BaseController implements IConstroller<P
 		ModelAndView modelAndView = new ModelAndView("payments/payments");
 		modelAndView.addObject("searchCondition", searchCondition);
 		modelAndView.addObject("searchResult", searchResult);
-		modelAndView.addObject("paging", paging);
+		modelAndView.addObject(PAGING, paging);
+		modelAndView.addObject(ACTIVE_NAVI, "payments");
 
 		return modelAndView;
 
@@ -106,6 +108,7 @@ public class PaymentsController extends BaseController implements IConstroller<P
 
 		ModelAndView modelAndView = new ModelAndView("payments/detail");
 		modelAndView.addObject("detail", detail);
+		modelAndView.addObject(ACTIVE_NAVI, "payments");
 
 		return modelAndView;
 
@@ -121,6 +124,7 @@ public class PaymentsController extends BaseController implements IConstroller<P
 
 		ModelAndView modelAndView = new ModelAndView("payments/edit");
 		modelAndView.addObject("detail", detail);
+		modelAndView.addObject(ACTIVE_NAVI, "payments");
 
 		return modelAndView;
 

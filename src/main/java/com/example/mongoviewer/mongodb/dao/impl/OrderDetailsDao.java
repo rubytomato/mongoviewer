@@ -64,6 +64,16 @@ public class OrderDetailsDao extends AbstractDao<OrderDetails> {
 	}
 
 	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.mongodb.dao.MongoDao#findByPK(java.lang.Object)
+	 */
+	@Override
+	public OrderDetails findByPK(OrderDetails model) {
+		logger.debug("findByPK IN");
+		Query query = new Query(makeCriteriaByPk(model));
+		return doFindOne(query, OrderDetails.class);
+	}
+
+	/* (non-Javadoc)
 	 * @see net.blogdns.gontata.mongodb.dao.MongoDao#list(int, java.lang.Object)
 	 */
 	@Override

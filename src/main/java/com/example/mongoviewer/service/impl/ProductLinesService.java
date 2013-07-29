@@ -44,10 +44,18 @@ public class ProductLinesService implements IService<ProductLines> {
 	 */
 	@Override
 	public ProductLines get(String id) {
-
 		ProductLines model = 
 			dao.findById(id);
+		return model;
+	}
 
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#find(java.lang.Object)
+	 */
+	@Override
+	public ProductLines find(ProductLines searchCondition) {
+		ProductLines model = 
+			dao.findByPK(searchCondition);
 		return model;
 	}
 
@@ -56,7 +64,6 @@ public class ProductLinesService implements IService<ProductLines> {
 	 */
 	@Override
 	public List<ProductLines> search(int page, ProductLines searchCondition) {
-
 		logger.debug("search condition : " + searchCondition.toString());
 
 		List<ProductLines> list =
