@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -48,7 +49,7 @@ public class IndexController extends BaseController implements IConstroller<Cust
 	 * @see com.example.mongoviewer.controller.IConstroller#detail(java.lang.String)
 	 */
 	@Override
-	public ModelAndView detail(String id) {
+	public ModelAndView detail(String id, Model model) {
 		return null;
 	}
 

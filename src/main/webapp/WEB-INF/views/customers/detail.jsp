@@ -17,7 +17,7 @@
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
-<title>customers</title>
+<title><spring:message code="customers.title" /></title>
 </head>
 <body>
 
@@ -147,6 +147,19 @@
 					</c:forEach>
 					</tbody>
 				</table>
+				</c:if>
+
+				<c:if test="${not empty isSUccess}">
+				<c:if test="${isSuccess == true}">
+				<div class="alert alert-success">
+					更新しました。
+				</div>
+				</c:if>
+				<c:if test="${isSuccess == true}">
+				<div class="alert alert-error">
+					更新できませんでした。
+				</div>
+				</c:if>
 				</c:if>
 
 			</div>

@@ -78,4 +78,12 @@ public class PaymentsService implements IService<Payments> {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#save(java.lang.Object)
+	 */
+	@Override
+	public int save(Payments model) {
+		return dao.upsert(model);
+	}
+
 }

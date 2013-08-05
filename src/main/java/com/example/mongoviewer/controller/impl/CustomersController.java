@@ -2,6 +2,8 @@ package com.example.mongoviewer.controller.impl;
 
 
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -114,7 +116,7 @@ public class CustomersController extends BaseController implements IConstroller<
 
 	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView detail(@PathVariable(value="id") String id) {
+	public ModelAndView detail(@PathVariable(value="id") String id, Model model) {
 		logger.debug("CustomersController:[detail] Passing through...");
 
 		Customers customer =
@@ -131,11 +133,17 @@ public class CustomersController extends BaseController implements IConstroller<
 		List<Orders> orderList =
 			ordersService.search(1, order);
 
+		Map<String, Object> map = model.asMap();
+		for (Entry<String, Object> entry : map.entrySet()) {
+			logger.debug("key : " + entry.getKey());
+		}
+
 		ModelAndView modelAndView = new ModelAndView("customers/detail");
 		modelAndView.addObject("detail", customer);
 		modelAndView.addObject("orderList", orderList);
 		modelAndView.addObject("json", json);
 		modelAndView.addObject(ACTIVE_NAVI, "customers");
+		modelAndView.addAllObjects(model.asMap());
 
 		return modelAndView;
 
@@ -165,13 +173,19 @@ public class CustomersController extends BaseController implements IConstroller<
 			return "customers/edit";
 		}
 
+		Boolean isSuccess = Boolean.FALSE;
 		if (customer == null) {
 			logger.debug("customer is null");
 		} else {
-			logger.debug(customer.toString());
+			logger.debug("save : " + customer.toString());
+			customer.setCity("*港区*");
+			if (customersService.save(customer) > 0){
+				isSuccess = Boolean.TRUE;
+			}
 		}
 
-		model.addAttribute("detail", customer);
+		//model.addAttribute("detail", customer);
+		model.addAttribute("isSuccess", isSuccess);
 
 		return "redirect:detail/" + customer.getId();
 

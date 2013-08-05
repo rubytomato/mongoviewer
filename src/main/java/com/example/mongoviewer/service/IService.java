@@ -14,4 +14,6 @@ public interface IService<T> {
 
 	public List<T> search(int page, T searchCondition);
 
+	public int save(T model);
+
 }

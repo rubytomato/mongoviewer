@@ -78,4 +78,12 @@ public class ProductLinesService implements IService<ProductLines> {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#save(java.lang.Object)
+	 */
+	@Override
+	public int save(ProductLines model) {
+		return dao.upsert(model);
+	}
+
 }

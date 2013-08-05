@@ -17,7 +17,7 @@
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
-<title>customers</title>
+<title><spring:message code="customers.title" /></title>
 </head>
 <body>
 
@@ -39,31 +39,31 @@
 				<div class="control-group">
 					<form:label path="customerNumber" cssClass="control-label" for="customerNumber">Customer Number</form:label>
 					<div class="controls">
-						<form:input path="customerNumber" cssClass="span4"/>
+						<form:input path="customerNumber" cssClass="disabled"/>
 					</div>
 				</div>
 				<div class="control-group">
 					<form:label path="customerName" cssClass="control-label">Customer Name</form:label>
 					<div class="controls">
-						<form:input path="customerName" cssClass="span6"/>
+						<form:input path="customerName" cssClass="input-large"/>
 					</div>
 				</div>
 				<div class="control-group">
 					<form:label path="contactLastName" cssClass="control-label">Contact Last Name</form:label>
 					<div class="controls">
-						<form:input path="contactLastName"/>
+						<form:input path="contactLastName" cssClass="input-large"/>
 					</div>
 				</div>
 				<div class="control-group">
 					<form:label path="contactFirstName" cssClass="control-label">Contact First Name</form:label>
 					<div class="controls">
-						<form:input path="contactFirstName"/>
+						<form:input path="contactFirstName" cssClass="input-medium"/>
 					</div>
 				</div>
 				<div class="control-group">
 					<form:label path="phone" cssClass="control-label">phone</form:label>
 					<div class="controls">
-						<form:input path="phone"/>
+						<form:input path="phone" cssClass="input-small"/>
 					</div>
 				</div>
 				<div class="control-group">

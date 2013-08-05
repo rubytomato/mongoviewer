@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,6 +26,7 @@ import com.example.mongoviewer.mongodb.collection.ProductLines;
 import com.example.mongoviewer.mongodb.constants.QualifierNames;
 import com.example.mongoviewer.mongodb.utils.MongoService;
 import com.example.mongoviewer.service.IService;
+import com.example.mongoviewer.utils.JsonLoader;
 
 @Controller
 @RequestMapping(value = "/productLines")
@@ -102,14 +104,20 @@ public class ProductLinesController extends BaseController implements IConstroll
 	 */
 	@RequestMapping(value = "/detail/{id}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView detail(@PathVariable(value="id") String id) {
+	public ModelAndView detail(@PathVariable(value="id") String id, Model model) {
 		logger.debug("ProductLinesController:[detail] Passing through...");
 
 		ProductLines detail =
 			productLinesService.get(id);
 
+		String json = "{}";
+		if (detail != null) {
+			json = JsonLoader.toJson(detail);
+		}
+
 		ModelAndView modelAndView = new ModelAndView("productLines/detail");
 		modelAndView.addObject("detail", detail);
+		modelAndView.addObject("json", json);
 		modelAndView.addObject(ACTIVE_NAVI, "productlines");
 
 		return modelAndView;

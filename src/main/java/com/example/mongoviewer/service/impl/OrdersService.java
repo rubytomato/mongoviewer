@@ -67,4 +67,12 @@ public class OrdersService implements IService<Orders> {
 		return list;
 	}
 
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#save(java.lang.Object)
+	 */
+	@Override
+	public int save(Orders model) {
+		return dao.upsert(model);
+	}
+
 }
