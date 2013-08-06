@@ -32,6 +32,10 @@
                 <a href="${pageContext.request.contextPath}/productLines"><spring:message code="navi.menu.productlines"/></a>
               </li>
 
+              <li class="<c:if test="${activeNavi == 'calendar'}">active</c:if>">
+                <a href="${pageContext.request.contextPath}/calendar"><spring:message code="navi.menu.calendar"/></a>
+              </li>
+
               <li class="<c:if test="${activeNavi == 'admin'}">active</c:if>">
                 <a href="${pageContext.request.contextPath}/admin"><spring:message code="navi.menu.admin"/></a>
               </li>
