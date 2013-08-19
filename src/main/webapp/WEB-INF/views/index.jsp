@@ -18,6 +18,34 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
 
+<style type="text/css">
+.no-space [class*="span"] {
+    margin-left:0;
+}
+.no-space {
+    margin-left:0;
+}
+
+.row-fluid [class*="NoGutter"] {
+    margin-left: 0;
+    background-color: #efefef;
+}
+.row-fluid .span1NoGutter {
+    width: 8.33334%;
+}
+.row-fluid .span2NoGutter {
+    width:16.66667%;
+    margin-left:0;
+}
+.row-fluid .span4NoGutter {
+    width:25%;
+    margin-left:0;
+}
+.row-fluid .span3NoGutter {
+    width:33.33333%;
+    margin-left:0;
+}
+</style>
 <title><spring:message code="index.title"/></title>
 </head>
 <body>
@@ -26,62 +54,230 @@
 
     <%@ include file ="/WEB-INF/views/includePage/navi.jsp" %>
 
-    <div class="container top_start_point">
+    <div class="container-fluid top_start_point">
 
         <header class="header">
-            <h1><spring:message code="index.title"/></h1>
+            <h1><spring:message code="index.title"/> (h1:header)</h1>
             <p class="lead">新しいプロジェクトを始めるに早く使えてとてもシンプルなこのドキュメントを使ってください。<br> このHTMLの骨格を利用して作成してください。</p>
         </header>
 
         <div class="page-header">
-            <h2>mongoviewer概要</h2>
+            <h2>mongoviewer (h2:page-header)</h2>
             <p>一般的なユーザーインターフェイスコンポーネントと相互作用のためのシンプルで柔軟なHTML、CSS、およびJavascript</p>
         </div>
 
 		<div class="row-fluid">
-			<div class="span12">
+			<div class="span12 well">
 				<h3>アーキテクチャー</h3>
 				<ul>
 					<li>Springframework Release 3.1.4</li>
+					<li>MongoDB 2.4.4</li>
 				</ul>
 			</div>
 		</div>
 
         <div class="row-fluid">
-
             <div class="span3 well">
-
-                <h3>小見出し<small>説明</small></h3>
-                                   サイドバーカラム
-
+                <h3>小見出し<small>(h3:span3)</small></h3>
+                <p>サイドバーカラム</p>
             </div>
 
             <div class="span9 well">
-
+				<h2>その他<small>(h2:span9)</small></h2>
                 <section id="misc">
                     <div class="page-header">
-                        <h2>その他<small>軽量のユーティリティ·コンポーネント</small></h2>
+						<p>section page-header</p>
                     </div>
                 </section>
             </div>
 
         </div>
 
-        <table class="table table-bordered">
-            <thead>
-                <tr>
-                    <th>#</th><th>title</th><th>action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                     <td>1</td><td>sample1</td><td><button type="submit" class="btn btn-success">Submit</button></td>
-                </tr>
-                <tr>
-                     <td>2</td><td>sample2</td><td><button type="submit" class="btn btn-primary">Submit</button></td>
-                </tr>
-            </tbody>
-        </table>
+		<div class="row-fluid">
+			<div class="span12 well">
+				<h4>row span1</h4>
+				<div class="row-fluid">
+					<div class="span1 alert alert-info">
+						n1
+					</div>
+					<div class="span1 alert alert-success">
+						n2
+					</div>
+					<div class="span1 alert alert-error">
+						n3
+					</div>
+					<div class="span1 alert alert-message">
+						n4
+					</div>
+					<div class="span1 alert alert-block">
+						n5
+					</div>
+					<div class="span1 alert">
+						n6
+					</div>
+					<div class="span1 alert">
+						n7
+					</div>
+					<div class="span1 alert">
+						n8
+					</div>
+					<div class="span1 alert">
+						n9
+					</div>
+					<div class="span1 alert">
+						n10
+					</div>
+					<div class="span1 alert">
+						n11
+					</div>
+					<div class="span1 alert">
+						n12
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span2 alert">
+						n1
+					</div>
+					<div class="span2 alert">
+						n2
+					</div>
+					<div class="span2 alert">
+						n3
+					</div>
+					<div class="span2 alert">
+						n4
+					</div>
+					<div class="span2 alert">
+						n5
+					</div>
+					<div class="span2 alert">
+						n6
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row-fluid">
+			<div class="span12">
+				<h4>row span1</h4>
+				<div class="row-fluid">
+					<div class="span1 alert alert-info">
+						n1
+					</div>
+					<div class="span1 alert alert-success">
+						n2
+					</div>
+					<div class="span1 alert alert-error">
+						n3
+					</div>
+					<div class="span1 alert alert-message">
+						n4
+					</div>
+					<div class="span1 alert alert-block">
+						n5
+					</div>
+					<div class="span1 alert">
+						n6
+					</div>
+					<div class="span1 alert">
+						n7
+					</div>
+					<div class="span1 alert">
+						n8
+					</div>
+					<div class="span1 alert">
+						n9
+					</div>
+					<div class="span1 alert">
+						n10
+					</div>
+					<div class="span1 alert">
+						n11
+					</div>
+					<div class="span1 alert">
+						n12
+					</div>
+				</div>
+				<div class="row-fluid">
+					<div class="span2 alert">
+						n1
+					</div>
+					<div class="span2 alert">
+						n2
+					</div>
+					<div class="span2 alert">
+						n3
+					</div>
+					<div class="span2 alert">
+						n4
+					</div>
+					<div class="span2 alert">
+						n5
+					</div>
+					<div class="span2 alert">
+						n6
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="row-fluid show-grid">
+					<div class="span1NoGutter">
+						n1
+					</div>
+					<div class="span1NoGutter">
+						n2
+					</div>
+					<div class="span1NoGutter">
+						n3
+					</div>
+					<div class="span1NoGutter">
+						n4
+					</div>
+					<div class="span1NoGutter">
+						n5
+					</div>
+					<div class="span1NoGutter">
+						n6
+					</div>
+					<div class="span1NoGutter">
+						n7
+					</div>
+					<div class="span1NoGutter">
+						n8
+					</div>
+					<div class="span1NoGutter">
+						n9
+					</div>
+					<div class="span1NoGutter">
+						n10
+					</div>
+					<div class="span1NoGutter">
+						n11
+					</div>
+					<div class="span1NoGutter">
+						n12
+					</div>
+		</div>
+
+		<div class="row-fluid">
+			<h4>table</h4>
+	        <table class="table table-bordered">
+	            <thead>
+	                <tr>
+	                    <th>#</th><th>title</th><th>action</th>
+	                </tr>
+	            </thead>
+	            <tbody>
+	                <tr>
+	                     <td>1</td><td>sample1</td><td><button type="submit" class="btn btn-success">Submit</button></td>
+	                </tr>
+	                <tr>
+	                     <td>2</td><td>sample2</td><td><button type="submit" class="btn btn-primary">Submit</button></td>
+	                </tr>
+	            </tbody>
+	        </table>
+		</div>
 
 		<div id="push"></div>
 	</div> <!-- /container -->

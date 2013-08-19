@@ -6,7 +6,11 @@
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
 
-	
+	<bean class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="webBindingInitializer">
+			<bean class="com.example.mongoviewer.controller.initializer.GlobalBindingInitializer" />
+		</property>
+	</bean>
 
 	<import resource="spring-security.xml"/>
 

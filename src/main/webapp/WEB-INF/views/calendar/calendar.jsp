@@ -15,8 +15,11 @@
     <link href="${pageContext.request.contextPath}/resources/css/custom.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+    <link href="${pageContext.request.contextPath}/resources/bootstrap-datepicker/css/datepicker.css" rel="stylesheet">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/bootstrap/js/bootstrap.js"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+    <script src="${pageContext.request.contextPath}/resources/bootstrap-datepicker/js/locales/bootstrap-datepicker.ja.js" type="text/javascript" charset="UTF-8"></script>
 <title><spring:message code="calendar.title" /></title>
 </head>
 <body>
@@ -43,12 +46,68 @@
 			</div>
 		</div>
 
+		<div id="dp1" class="input-append date" data-date="2013-09-01" data-date-format="yyyy-mm-dd">
+			<input class="input-small" size="16" type="text" value="2013-09-01" />
+			<span class="add-on">
+				<i class="icon-th"></i>
+			</span>
+		</div>
+
+<script type="text/javascript">
+$(function(){
+
+	window.prettyPrint && prettyPrint();
+
+	var nowTemp = new Date();
+	var now = new Date(nowTemp.getFullYear(), nowTemp.getMonth(), nowTemp.getDate(), 0, 0, 0, 0);
+
+	var checkout = $('#dp1').datepicker({
+		format: 'yyyy-mm-dd',
+		autoclose: true,
+		language: 'ja',
+		startView: 'month'
+	}).on('changeDate', function(ev) {
+		console.log("changeDate");
+		console.log(ev);
+		if (ev.date.valueOf() < now.valueOf()) {
+			console.log("x");
+			checkout.datepicker('update', now);
+		} else {
+			console.log("y");
+		}
+	}).on('changeMonth', function(ev) {
+		console.log("changeMonth");
+		console.log(ev);
+	});
+
+	checkout.datepicker('setStartDate', '2013-01-01');
+	checkout.datepicker('setEndDate', '2013-12-31');
+/*
+	var checkout = $('#dp1').datepicker({
+		format: 'yyyy-mm-dd',
+		//autoclose: true,
+		language: 'ja'
+	}).on('changeDate', function(ev) {
+		checkout.hide();
+		//console.log(ev);
+	}).data('datepicker');
+*/
+});
+</script>
+
 		<div class="row-fluid">
 			<div class="span3">
 
 			</div>
 			<div class="span9">
-
+				<ul class="pager">
+					<li class="previous">
+						<a href="#">&larr; Older</a>
+					</li>
+					<li class="next">
+						<a href="#">Newer &rarr;</a>
+					</li>
+				</ul>
 				<table class="table table-condensed">
 					<thead>
 						<tr>

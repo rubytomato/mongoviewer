@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -58,9 +59,29 @@ public class CustomersController extends BaseController implements IConstroller<
 
 	}
 
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public ModelAndView search2(@RequestParam(value="page", required=false) String page2,
+								@ModelAttribute("customers") Customers searchCondition,
+								BindingResult result,
+								HttpServletRequest request,
+								HttpServletResponse response) {
+		logger.debug("CustomersController:[search2] Passing through...");
+		String page;
+		if (page2 != null && page2.length() > 0) {
+			page = page2;
+		} else {
+			page = "1";
+		}
+		return search(page, searchCondition, result, request, response);
+	}
+
 	@RequestMapping(value = "/search/{page}", method = RequestMethod.GET)
 	@Override
-	public ModelAndView search(@PathVariable(value="page") String page, @ModelAttribute("customers") Customers searchCondition, BindingResult result, HttpServletRequest request, HttpServletResponse response) {
+	public ModelAndView search(@PathVariable(value="page") String page,
+							   @ModelAttribute("customers") Customers searchCondition,
+							   BindingResult result,
+							   HttpServletRequest request,
+							   HttpServletResponse response) {
 		logger.debug("CustomersController:[search] Passing through...");
 
 		StopWatch stopWatch = new StopWatch("CustomersController:[search]");

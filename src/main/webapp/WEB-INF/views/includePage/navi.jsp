@@ -16,6 +16,8 @@
                 <a href="${pageContext.request.contextPath}/customers"><spring:message code="navi.menu.customers"/></a>
               </li>
 
+              <li class="divider-vertical"></li>
+
               <li class="<c:if test="${activeNavi == 'payments'}">active</c:if>">
                 <a href="${pageContext.request.contextPath}/payments"><spring:message code="navi.menu.payments"/></a>
               </li>

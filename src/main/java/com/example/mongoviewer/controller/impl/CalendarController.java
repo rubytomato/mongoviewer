@@ -13,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.example.mongoviewer.calendar.DateBean;
@@ -25,8 +26,10 @@ public class CalendarController extends BaseController {
 	private static Logger logger = LoggerFactory.getLogger(CalendarController.class);
 
 	@RequestMapping(method = RequestMethod.GET)
-	public ModelAndView top() {
+	public ModelAndView top(@RequestParam(value="today", required=false) Integer today) {
 		logger.debug("CalendarController:[top] Passing through...");
+
+		logger.debug("today : " + today);
 
 		Calendar cal = Calendar.getInstance(TimeZone.getDefault(), Locale.JAPAN);
 		cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
