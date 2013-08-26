@@ -1,5 +1,6 @@
 package com.example.mongoviewer.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -48,6 +49,16 @@ public class CustomersService implements IService<Customers> {
 		Customers customer =
 			dao.findByPK(searchCondition);
 		return customer;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#search(int, java.lang.Object, java.util.Date, java.util.Date)
+	 */
+	@Override
+	public List<Customers> search(int page, Customers searchCondition,
+			Date from, Date to) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	@Override

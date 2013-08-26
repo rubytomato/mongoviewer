@@ -1,5 +1,6 @@
 package com.example.mongoviewer.mongodb.dao;
 
+import java.util.Date;
 import java.util.List;
 
 public interface MongoDao<T> {
@@ -13,6 +14,8 @@ public interface MongoDao<T> {
 	public T find(T model);
 
 	public T findByPK(T model);
+
+	public List<T> list(int page, T model, Date from, Date to);
 
 	public List<T> list(int page, T model);
 

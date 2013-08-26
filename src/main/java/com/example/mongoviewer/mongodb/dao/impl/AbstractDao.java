@@ -1,5 +1,6 @@
 package com.example.mongoviewer.mongodb.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -98,6 +99,8 @@ public abstract class AbstractDao<T> implements MongoDao<T> {
 	abstract protected Criteria makeCriteriaByPk(T model);
 
 	abstract protected Criteria makeCriteria(T model);
+
+	abstract protected Criteria makeCriteria(T model, Date from, Date to);
 
 	abstract protected Update makeAllUpdate(T model);
 

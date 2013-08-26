@@ -45,6 +45,19 @@
     width:33.33333%;
     margin-left:0;
 }
+
+hr {
+  -moz-border-bottom-colors: none;
+  -moz-border-image: none;
+  -moz-border-left-colors: none;
+  -moz-border-right-colors: none;
+  -moz-border-top-colors: none;
+  border-color: #EEEEEE -moz-use-text-color #FFFFFF;
+  border-style: solid none;
+  border-width: 1px 0;
+  margin: 18px 0;
+}
+
 </style>
 <title><spring:message code="index.title"/></title>
 </head>
@@ -221,43 +234,126 @@
 			</div>
 		</div>
 
+		<hr>
+
+		<div class="row-fluid">
+			<div class="span1NoGutter">
+				n1
+			</div>
+			<div class="span1NoGutter">
+				n2
+			</div>
+			<div class="span1NoGutter">
+				n3
+			</div>
+			<div class="span1NoGutter">
+				n4
+			</div>
+			<div class="span1NoGutter">
+				n5
+			</div>
+			<div class="span1NoGutter">
+				n6
+			</div>
+			<div class="span1NoGutter">
+				n7
+			</div>
+			<div class="span1NoGutter">
+				n8
+			</div>
+			<div class="span1NoGutter">
+				n9
+			</div>
+			<div class="span1NoGutter">
+				n10
+			</div>
+			<div class="span1NoGutter">
+				n11
+			</div>
+			<div class="span1NoGutter">
+				n12
+			</div>
+		</div>
+
 		<div class="row-fluid show-grid">
-					<div class="span1NoGutter">
-						n1
+			<div class="span2NoGutter">
+				n1
+			</div>
+			<div class="span2NoGutter">
+				n2
+			</div>
+			<div class="span2NoGutter">
+				n3
+			</div>
+			<div class="span2NoGutter">
+				n4
+			</div>
+			<div class="span2NoGutter">
+				n5
+			</div>
+			<div class="span2NoGutter">
+				n6
+			</div>
+		</div>
+
+		<hr>
+
+		<div class="row-fluid">
+		<div class="span4">
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseOne">
+				<div class="unit grey bloat">
+					<h3>herpity</h3>
+					<p>herp herp herp</p>
+				</div>
+			</a>
+		</div>
+
+		<div class="span4">
+			<a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion2" href="#collapseTwo">
+				<div class="unit grey bloat">
+             		<h3>derpity</h3>
+             		<p>derp derp derp</p>
+            	</div>
+            </a>
+         </div>
+
+		<div class="span4">
+			<a href="#">
+				<div class="unit grey bloat">
+	             <h3>durrr</h3>
+    	         <p>durrr durrr durr</p>
+	            </div>
+			</a>
+		</div>
+		</div>
+
+		<div class="row-fluid">
+			<div class="span12">
+
+				<!-- start accord -->
+				<!-- end accord -->
+
+				<div class="accordion" id="accordion2">
+					<div class="accordion-group">
+						<div id="collapseOne" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<div class="expanded">
+									<p>chicka chika</p>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="span1NoGutter">
-						n2
+					<div class="accordion-group">
+						<div id="collapseTwo" class="accordion-body collapse">
+							<div class="accordion-inner">
+								<div class="expanded">
+									<p>chewwwaawawaa</p>
+								</div>
+							</div>
+						</div>
 					</div>
-					<div class="span1NoGutter">
-						n3
-					</div>
-					<div class="span1NoGutter">
-						n4
-					</div>
-					<div class="span1NoGutter">
-						n5
-					</div>
-					<div class="span1NoGutter">
-						n6
-					</div>
-					<div class="span1NoGutter">
-						n7
-					</div>
-					<div class="span1NoGutter">
-						n8
-					</div>
-					<div class="span1NoGutter">
-						n9
-					</div>
-					<div class="span1NoGutter">
-						n10
-					</div>
-					<div class="span1NoGutter">
-						n11
-					</div>
-					<div class="span1NoGutter">
-						n12
-					</div>
+				</div>
+			</div>
 		</div>
 
 		<div class="row-fluid">

@@ -1,5 +1,6 @@
 package com.example.mongoviewer.service;
 
+import java.util.Date;
 import java.util.List;
 
 public interface IService<T> {
@@ -13,6 +14,8 @@ public interface IService<T> {
 	public T find(T searchCondition);
 
 	public List<T> search(int page, T searchCondition);
+
+	public List<T> search(int page, T searchCondition, Date from, Date to);
 
 	public int save(T model);
 

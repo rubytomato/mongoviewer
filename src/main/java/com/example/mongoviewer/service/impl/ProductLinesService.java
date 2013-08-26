@@ -1,5 +1,6 @@
 package com.example.mongoviewer.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -57,6 +58,16 @@ public class ProductLinesService implements IService<ProductLines> {
 		ProductLines model = 
 			dao.findByPK(searchCondition);
 		return model;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#search(int, java.lang.Object, java.util.Date, java.util.Date)
+	 */
+	@Override
+	public List<ProductLines> search(int page, ProductLines searchCondition,
+			Date from, Date to) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/* (non-Javadoc)

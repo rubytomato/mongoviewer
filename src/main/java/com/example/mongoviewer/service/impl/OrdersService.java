@@ -1,5 +1,6 @@
 package com.example.mongoviewer.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 
@@ -57,6 +58,27 @@ public class OrdersService implements IService<Orders> {
 
 		List<Orders> list =
 			dao.list(page, searchCondition);
+
+		if (list != null && !list.isEmpty()) {
+			logger.debug("list size : " + list.size());
+		} else {
+			logger.debug("list is null");
+		}
+
+		return list;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#search(int, java.lang.Object, java.util.Date, java.util.Date)
+	 */
+	@Override
+	public List<Orders> search(int page, Orders searchCondition, Date from,
+			Date to) {
+
+		logger.debug("search condition : " + searchCondition.toString());
+
+		List<Orders> list =
+			dao.list(page, searchCondition, from, to);
 
 		if (list != null && !list.isEmpty()) {
 			logger.debug("list size : " + list.size());

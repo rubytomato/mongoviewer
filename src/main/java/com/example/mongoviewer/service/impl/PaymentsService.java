@@ -1,5 +1,6 @@
 package com.example.mongoviewer.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -57,6 +58,26 @@ public class PaymentsService implements IService<Payments> {
 		Payments model = 
 			dao.findByPK(searchCondition);
 		return model;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.service.IService#search(int, java.lang.Object, java.util.Date, java.util.Date)
+	 */
+	@Override
+	public List<Payments> search(int page, Payments searchCondition, Date from,
+			Date to) {
+		logger.debug("search condition : " + searchCondition.toString());
+
+		List<Payments> list =
+			dao.list(page, searchCondition, from, to);
+
+		if (list != null && !list.isEmpty()) {
+			logger.debug("list size : " + list.size());
+		} else {
+			logger.debug("list is null");
+		}
+
+		return list;
 	}
 
 	/* (non-Javadoc)

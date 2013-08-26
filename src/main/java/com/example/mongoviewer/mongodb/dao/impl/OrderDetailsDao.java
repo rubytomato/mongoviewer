@@ -1,5 +1,6 @@
 package com.example.mongoviewer.mongodb.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -71,6 +72,25 @@ public class OrderDetailsDao extends AbstractDao<OrderDetails> {
 		logger.debug("findByPK IN");
 		Query query = new Query(makeCriteriaByPk(model));
 		return doFindOne(query, OrderDetails.class);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.mongodb.dao.MongoDao#list(int, java.lang.Object, java.util.Date, java.util.Date)
+	 */
+	@Override
+	public List<OrderDetails> list(int page, OrderDetails model, Date from,
+			Date to) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.mongodb.dao.impl.AbstractDao#makeCriteria(java.lang.Object, java.util.Date, java.util.Date)
+	 */
+	@Override
+	protected Criteria makeCriteria(OrderDetails model, Date from, Date to) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	/* (non-Javadoc)

@@ -12,6 +12,10 @@ public class MonthBean implements Serializable {
 
 	private List<WeekBean> month;
 
+	private String prev;
+
+	private String next;
+
 	/**
 	 * @return the month
 	 */
@@ -24,6 +28,34 @@ public class MonthBean implements Serializable {
 	 */
 	public void setMonth(List<WeekBean> month) {
 		this.month = month;
+	}
+
+	/**
+	 * @return the prev
+	 */
+	public String getPrev() {
+		return prev;
+	}
+
+	/**
+	 * @param prev the prev to set
+	 */
+	public void setPrev(String prev) {
+		this.prev = prev;
+	}
+
+	/**
+	 * @return the next
+	 */
+	public String getNext() {
+		return next;
+	}
+
+	/**
+	 * @param next the next to set
+	 */
+	public void setNext(String next) {
+		this.next = next;
 	}
 
 }

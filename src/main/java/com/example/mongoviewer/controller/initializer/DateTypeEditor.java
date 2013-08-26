@@ -12,6 +12,9 @@ public class DateTypeEditor extends PropertyEditorSupport {
 	 */
 	@Override
 	public void setAsText(String text) throws IllegalArgumentException {
+		if (text == null || text.length() == 0){
+			return;
+		}
 		SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
 		Date date = null;
 		try {

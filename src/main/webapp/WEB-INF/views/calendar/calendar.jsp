@@ -36,22 +36,21 @@
 
 		<div class="row-fluid">
 			<div class="span12">
-				<form class="form-inline" action="${pageContext.request.contextPath}/customers/search/1" method="get">
-					<input type="text" class="input-large" placeholder="customerNumber" name="customerNumber" value="${searchCondition.customerNumber}">
-					<input type="text" class="input-medium" placeholder="customerName" name="customerName" value="${searchCondition.customerName}">
-					<input type="text" class="input-small" placeholder="city" name="city" value="${searchCondition.city}">
-					<input type="text" class="input-small" placeholder="country" name="country" value="${searchCondition.country}">
+				<form class="form-inline" action="${pageContext.request.contextPath}/calendar" method="get">
+					<input type="text" class="input-small" placeholder="customerNumber" name="customerNumber" value="${customerNumber}">
+
+					<div id="dp1" class="input-append date" data-date="${target}" data-date-format="yyyy-mm-dd">
+					<input type="text" class="input-small" placeholder="target" name="target" size="16" value="${target}" />
+					<span class="add-on">
+						<i class="icon-th"></i>
+					</span>
+					</div>
+
 					<button type="submit" class="btn">search</button>
 				</form>
 			</div>
 		</div>
 
-		<div id="dp1" class="input-append date" data-date="2013-09-01" data-date-format="yyyy-mm-dd">
-			<input class="input-small" size="16" type="text" value="2013-09-01" />
-			<span class="add-on">
-				<i class="icon-th"></i>
-			</span>
-		</div>
 
 <script type="text/javascript">
 $(function(){
@@ -71,7 +70,7 @@ $(function(){
 		console.log(ev);
 		if (ev.date.valueOf() < now.valueOf()) {
 			console.log("x");
-			checkout.datepicker('update', now);
+			//checkout.datepicker('update', now);
 		} else {
 			console.log("y");
 		}
@@ -80,8 +79,8 @@ $(function(){
 		console.log(ev);
 	});
 
-	checkout.datepicker('setStartDate', '2013-01-01');
-	checkout.datepicker('setEndDate', '2013-12-31');
+	checkout.datepicker('setStartDate', '2011-01-01');
+	checkout.datepicker('setEndDate', '2014-12-31');
 /*
 	var checkout = $('#dp1').datepicker({
 		format: 'yyyy-mm-dd',
@@ -96,22 +95,86 @@ $(function(){
 </script>
 
 		<div class="row-fluid">
-			<div class="span3">
-
+			<div class="span3 well">
+				<p>customer</p>
+				<c:if test="${not empty customer}">
+				<table>
+					<thead>
+						<tr>
+							<th></th>
+							<td></td>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<th>customer Number</th>
+							<td>${customer.customerNumber}</td>
+						</tr>
+						<tr>
+							<th>customer Name</th>
+							<td>${customer.customerName}</td>
+						</tr>
+						<tr>
+							<th>contact Last Name</th>
+							<td>${customer.contactLastName}</td>
+						</tr>
+						<tr>
+							<th>contact First Name</th>
+							<td>${customer.contactFirstName}</td>
+						</tr>
+						<tr>
+							<th>phone</th>
+							<td>${customer.phone}</td>
+						</tr>
+						<tr>
+							<th>address Line1</th>
+							<td>${customer.addressLine1}</td>
+						</tr>
+						<tr>
+							<th>address Line2</th>
+							<td>${customer.addressLine2}</td>
+						</tr>
+						<tr>
+							<th>city</th>
+							<td>${customer.city}</td>
+						</tr>
+						<tr>
+							<th>state</th>
+							<td>${customer.state}</td>
+						</tr>
+						<tr>
+							<th>postal Code</th>
+							<td>${customer.postalCode}</td>
+						</tr>
+						<tr>
+							<th>country</th>
+							<td>${customer.country}</td>
+						</tr>
+						<tr>
+							<th>sales Rep Employee Number</th>
+							<td>${customer.salesRepEmployeeNumber}</td>
+						</tr>
+						<tr>
+							<th>credit Limit</th>
+							<td>${customer.creditLimit}</td>
+						</tr>
+					</tbody>
+				</table>
+				</c:if>
 			</div>
-			<div class="span9">
+			<div class="span9 well">
 				<ul class="pager">
 					<li class="previous">
-						<a href="#">&larr; Older</a>
+						<a href="${pageContext.request.contextPath}${month.prev}">&larr; Older</a>
 					</li>
 					<li class="next">
-						<a href="#">Newer &rarr;</a>
+						<a href="${pageContext.request.contextPath}${month.next}">Newer &rarr;</a>
 					</li>
 				</ul>
 				<table class="table table-condensed">
 					<thead>
 						<tr>
-							<th></th>
+							<th colspan="2">-</th>
 							<th>sun</th>
 							<th>mon</th>
 							<th>the</th>
@@ -125,7 +188,7 @@ $(function(){
 						<c:if test="${not empty month}">
 						<c:forEach items="${month.month}" var="monthList" varStatus="idx1">
 						<tr>
-							<th>
+							<th colspan="2">
 								${monthList.weekOfYear}
 							</th>
 							<c:forEach items="${monthList.week}" var="weekList" varStatus="idx2">
@@ -135,52 +198,97 @@ $(function(){
 							</c:forEach>
 						</tr>
 						<tr>
-							<th>x</th>
+							<th colspan="2">o</th>
+							<c:forEach items="${monthList.week}" var="weekList">
 							<td>
-								A
+								<c:if test="${weekList.today}">
+									(d)
+								</c:if>
+								<c:if test="${weekList.target}">
+									(g)
+								</c:if>
 							</td>
-							<td>
-								B
-							</td>
-							<td>
-								C
-							</td>
-							<td>
-								D
-							</td>
-							<td>
-								E
-							</td>
-							<td>
-								F
-							</td>
-							<td>
-								G
-							</td>
+							</c:forEach>
 						</tr>
 						<tr>
-							<th>x</th>
+							<th rowspan="3">O</th>
+							<th>order Number</th>
+							<c:forEach items="${monthList.week}" var="weekList">
 							<td>
-								A
+								<c:if test="${not empty weekList.order}">
+									${weekList.order.orderNumber}
+								</c:if>
+								<c:if test="${empty weekList.order}">
+									-
+								</c:if>
 							</td>
+							</c:forEach>
+						</tr>
+						<tr>
+							<th>order Date</th>
+							<c:forEach items="${monthList.week}" var="weekList">
 							<td>
-								B
+								<c:if test="${not empty weekList.order}">
+									<fmt:formatDate value="${weekList.order.orderDate}" pattern="yyyy/MM/dd" />
+								</c:if>
+								<c:if test="${empty weekList.order}">
+									-
+								</c:if>
 							</td>
+							</c:forEach>
+						</tr>
+						<tr>
+							<th>status</th>
+							<c:forEach items="${monthList.week}" var="weekList">
 							<td>
-								C
+								<c:if test="${not empty weekList.order}">
+									${weekList.order.status}
+								</c:if>
+								<c:if test="${empty weekList.order}">
+									-
+								</c:if>
 							</td>
+							</c:forEach>
+						</tr>
+						<tr>
+							<th rowspan="3">P</th>
+							<th>check Number</th>
+							<c:forEach items="${monthList.week}" var="weekList">
 							<td>
-								D
+								<c:if test="${not empty weekList.payment}">
+									${weekList.payment.checkNumber}
+								</c:if>
+								<c:if test="${empty weekList.payment}">
+									-
+								</c:if>
 							</td>
+							</c:forEach>
+						</tr>
+						<tr>
+							<th>payment Date</th>
+							<c:forEach items="${monthList.week}" var="weekList">
 							<td>
-								E
+								<c:if test="${not empty weekList.payment}">
+									<fmt:formatDate value="${weekList.payment.paymentDate}" pattern="yyyy/MM/dd" />
+								</c:if>
+								<c:if test="${empty weekList.payment}">
+									-
+								</c:if>
 							</td>
+							</c:forEach>
+						</tr>
+						<tr>
+							<th>amount</th>
+							<c:forEach items="${monthList.week}" var="weekList">
 							<td>
-								F
+								<c:if test="${not empty weekList.payment}">
+									${weekList.payment.amount}
+								</c:if>
+								<c:if test="${empty weekList.payment}">
+									-
+								</c:if>
 							</td>
-							<td>
-								G
-							</td>
+							</c:forEach>
 						</tr>
 						</c:forEach>
 						</c:if>

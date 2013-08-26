@@ -1,5 +1,6 @@
 package com.example.mongoviewer.mongodb.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -70,6 +71,24 @@ public class OrdersDao extends AbstractDao<Orders> {
 		logger.debug("findByPK IN");
 		Query query = new Query(makeCriteriaByPk(model));
 		return doFindOne(query, Orders.class);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.mongodb.dao.MongoDao#list(int, java.lang.Object, java.util.Date, java.util.Date)
+	 */
+	@Override
+	public List<Orders> list(int page, Orders model, Date from, Date to) {
+		logger.debug("list IN");
+		Criteria criteria = makeCriteria(model, from, to);
+		if (criteria != null) {
+			Query query = new Query(criteria);
+			query.skip(calcSkipNum(page)).limit(Paging.PAGE_LIMIT);
+			return doFind(query, Orders.class);
+		} else {
+			Query query = new Query();
+			query.skip(calcSkipNum(page)).limit(Paging.PAGE_LIMIT);
+			return doFind(query, Orders.class);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -164,6 +183,35 @@ public class OrdersDao extends AbstractDao<Orders> {
 		}
 		if (model.getStatus() != null && model.getStatus().length() > 0) {
 			criteria = makeCriteria(criteria, "status", model.getStatus());
+		}
+
+		return criteria;
+	}
+
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.mongodb.dao.impl.AbstractDao#makeCriteria(java.lang.Object, java.util.Date, java.util.Date)
+	 */
+	@Override
+	protected Criteria makeCriteria(Orders model, Date from, Date to) {
+		Criteria criteria = null;
+
+		if (model.getOrderNumber() != null && model.getOrderNumber() > 0L) {
+			criteria = makeCriteria(criteria, "orderNumber", model.getOrderNumber());
+		}
+		if (model.getCustomerNumber() != null && model.getCustomerNumber() > 0L) {
+			criteria = makeCriteria(criteria, "customerNumber", model.getCustomerNumber());
+		}
+		if (model.getStatus() != null && model.getStatus().length() > 0) {
+			criteria = makeCriteria(criteria, "status", model.getStatus());
+		}
+		if (from != null && to != null) {
+			criteria.andOperator(Criteria.where("orderDate").gte(from), Criteria.where("orderDate").lte(to));
+		}
+		if (from !=null && to == null) {
+			criteria.and("orderDate").gte(from);
+		}
+		if (from == null && to != null) {
+			criteria.and("orderDate").lte(to);
 		}
 
 		return criteria;

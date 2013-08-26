@@ -1,5 +1,6 @@
 package com.example.mongoviewer.mongodb.dao.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -70,6 +71,24 @@ public class PaymentsDao extends AbstractDao<Payments> {
 		logger.debug("findByPK IN");
 		Query query = new Query(makeCriteriaByPk(model));
 		return doFindOne(query, Payments.class);
+	}
+
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.mongodb.dao.MongoDao#list(int, java.lang.Object, java.util.Date, java.util.Date)
+	 */
+	@Override
+	public List<Payments> list(int page, Payments model, Date from, Date to) {
+		logger.debug("list IN");
+		Criteria criteria = makeCriteria(model, from, to);
+		if (criteria != null) {
+			Query query = new Query(criteria);
+			query.skip(calcSkipNum(page)).limit(Paging.PAGE_LIMIT);
+			return doFind(query, Payments.class);
+		} else {
+			Query query = new Query();
+			query.skip(calcSkipNum(page)).limit(Paging.PAGE_LIMIT);
+			return doFind(query, Payments.class);
+		}
 	}
 
 	/* (non-Javadoc)
@@ -146,6 +165,31 @@ public class PaymentsDao extends AbstractDao<Payments> {
 	@Override
 	protected Criteria makeCriteriaByPk(Payments model) {
 		return Criteria.where("customerNumber").is(model.getCustomerNumber()).and("checkNumber").is(model.getCheckNumber());
+	}
+
+	/* (non-Javadoc)
+	 * @see com.example.mongoviewer.mongodb.dao.impl.AbstractDao#makeCriteria(java.lang.Object, java.util.Date, java.util.Date)
+	 */
+	@Override
+	protected Criteria makeCriteria(Payments model, Date from, Date to) {
+		Criteria criteria = null;
+
+		if (model.getCustomerNumber() != null && model.getCustomerNumber() > 0) {
+			criteria = makeCriteria(criteria, "customerNumber", model.getCustomerNumber());
+		}
+		if (model.getCheckNumber() != null && model.getCheckNumber().length() > 0) {
+			criteria = makeCriteria(criteria, "checkNumber", model.getCheckNumber());
+		}
+		if (from != null && to != null) {
+			criteria.andOperator(Criteria.where("paymentDate").gte(from), Criteria.where("paymentDate").lte(to));
+		}
+		if (from != null && to == null) {
+			criteria.and("paymentDate").gte(from);
+		}
+		if (from == null && to != null) {
+			criteria.and("paymentDate").lte(to);
+		}
+		return criteria;
 	}
 
 	/* (non-Javadoc)
