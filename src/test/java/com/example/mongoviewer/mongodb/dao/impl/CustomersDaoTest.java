@@ -1,4 +1,4 @@
-package com.example.mongoviewer.dao.impl;
+package com.example.mongoviewer.mongodb.dao.impl;
 
 import java.util.List;
 

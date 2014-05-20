@@ -1,4 +1,4 @@
-package com.example.mongoviewer.dao.impl;
+package com.example.mongoviewer.mongodb.dao.impl;
 
 import java.util.List;
 
@@ -13,23 +13,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.example.mongoviewer.mongodb.collection.OrderDetails;
-import com.example.mongoviewer.mongodb.dao.impl.OrderDetailsDao;
+import com.example.mongoviewer.mongodb.collection.Payments;
+import com.example.mongoviewer.mongodb.dao.impl.PaymentsDao;
 import com.example.mongoviewer.utils.JsonLoader;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:test-mongo-context.xml")
-public class OrderDetailsDaoTest {
+public class PaymentsDaoTest {
 	private static Logger logger = Logger.getLogger("TEST");
 
-	private static final String RESOURCE_DIR = "src/test/resources/json/OrderDetails/";
+	private static final String RESOURCE_DIR = "src/test/resources/json/Payments/";
 
-	private static final String TEST01_DATA = RESOURCE_DIR + "data_orderDetails_test01.json";
-	private static final String TEST02_DATA = RESOURCE_DIR + "data_orderDetail_test02.json";
-	private static final String TEST03_DATA = RESOURCE_DIR + "data_orderDetail_test03.json";
+	private static final String TEST01_DATA = RESOURCE_DIR + "data_payments_test01.json";
+	private static final String TEST02_DATA = RESOURCE_DIR + "data_payment_test02.json";
+	private static final String TEST03_DATA = RESOURCE_DIR + "data_payment_test03.json";
 
 	@Autowired
-	private OrderDetailsDao dao;
+	private PaymentsDao dao;
 
 	@Before
 	public void setUp() {
@@ -45,15 +45,14 @@ public class OrderDetailsDaoTest {
 	public void test01() {
 		logger.debug("test01");
 
-		List<OrderDetails> list =
-				JsonLoader.multi(TEST01_DATA, OrderDetails.class);
-		Assert.assertNotNull(list);
+		List<Payments> list =
+			JsonLoader.multi(TEST01_DATA, Payments.class);
 
 		int n = dao.upsert(list);
 		Assert.assertEquals(list.size(), n);
 
-		for (OrderDetails orderDetail : list) {
-			logger.debug(orderDetail.toString());
+		for (Payments payment : list) {
+			logger.debug(payment.toString());
 		}
 
 	}
@@ -62,15 +61,13 @@ public class OrderDetailsDaoTest {
 	public void test02() {
 		logger.debug("test02");
 
-		OrderDetails model = JsonLoader.single(TEST02_DATA, OrderDetails.class);
+		Payments model = JsonLoader.single(TEST02_DATA, Payments.class);
 
 		int n = dao.upsert(model);
 		Assert.assertEquals(1, n);
 
-		OrderDetails actual = dao.find(model);
+		Payments actual = dao.find(model);
 		Assert.assertNotNull(actual);
-
-		logger.debug(actual.toString());
 
 		dao.remove(model);
 
@@ -80,15 +77,13 @@ public class OrderDetailsDaoTest {
 	public void test03() {
 		logger.debug("test03");
 
-		OrderDetails model = JsonLoader.single(TEST03_DATA, OrderDetails.class);
+		Payments model = JsonLoader.single(TEST03_DATA, Payments.class);
 
 		int n = dao.upsert(model);
 		Assert.assertEquals(1, n);
 
-		OrderDetails actual = dao.find(model);
+		Payments actual = dao.find(model);
 		Assert.assertNotNull(actual);
-
-		logger.debug(actual.toString());
 
 		dao.remove(model);
 
